@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="">
+        <title>管理员-上架管理</title>
+
+        <link rel="icon" href="img/apple-touch-icon.png">
+
+        <link rel="stylesheet" href="font/iconfont.css">
+        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/adminShelves.css">
+    </head>
+    <body>
+
+        <!--头部-->
+        <header>
+            <!--顶部栏-->
+            <div class="hd-top">
+                <div class="sp-container">
+                    <div class="hd-top-left">
+
+                        <dl class="hd-top-title-bar">
+                            <dt class="hd-top-title">
+                                <i class="iconfont i-addr">&#xe627;</i>
+                                <span id="curMarket" class="hd-top-txt"></span>
+                                <i class="i-down"></i>
+                            </dt>
+                            <dd id="marketList" class="hd-top-items">
+                            </dd>
+                        </dl>
+
+                        <dl class="hd-top-title-bar">
+                            <dt class="hd-top-title">
+                                <span class="hd-top-txt">送至:
+                                    <b class="address"></b>
+                                    <a href="location_index.html">[切换地址]</a>
+                                </span>
+                                <i class="i-down"></i>
+                            </dt>
+                            <dd class="hd-top-items" id="addressList">
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="hd-top-right">
+                        <div class="hd-login-in">
+                            <a href="login.html?to=login">登录</a>
+                            <a href="login.html?to=register">注册</a>
+                        </div>
+                        <!--登录之后显示-->
+                        <div class="hd-user" style="display: none;">
+                            <dl class="hd-top-title-bar hd-user-bar">
+                                <dt class="hd-top-title">
+                                    <span class="hd-top-txt"></span>
+                                    <i class="i-down"></i>
+                                </dt>
+                                <dd class="hd-top-items" id="menu">
+                                </dd>
+                            </dl>
+                        </div>
+                        <span class="hd-split"></span>
+                        <div class="hd-service service">
+                            <i class="iconfont i-service">&#xe66e;</i>
+                            客服
+                        </div>
+                        <div class="hd-download-app">
+                            <a href="download.html">
+                                <i class="iconfont i-app">&#xe608;</i>
+                                下载app
+                            </a>
+                            <div class="cm-app">
+                                <img class="cm-app-img" src="img/qr-code-app.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--logo和搜索 导航部分-->
+            <div class="hd-bar">
+                <div class="sp-container">
+                    <div class="hd-logo-bar">
+                        <div class="hd-logo">
+                            <a href="index.html">
+                                <img src="img/logo.png">
+                            </a>
+                        </div>
+                        <div class="hd-search">
+                            <div class="hd-search-form">
+                                <select id="searchSelect" class="hd-select-search">
+                                    <option>商品</option>
+                                    <option>档口</option>
+                                </select>
+                                <input class="hd-search-text" type="text" id="search" name="search" placeholder="本地胡萝卜" maxlength="20">
+                                <button class="hd-search-btn" id="btnSearch">
+                                    <i class="iconfont i-search">&#xe604;</i>
+                                </button>
+                            </div>
+                            <div class="hot-words" id="hotWords">
+                            </div>
+                            <ul class="hd-search-list">
+                                <li class="hd-search-item">牛肉</li>
+                                <li class="hd-search-item">牛肉</li>
+                                <li class="hd-search-item">牛肉</li>
+                                <li class="hd-search-item">牛肉</li>
+                                <li class="hd-search-item">牛肉</li>
+                                <li class="hd-search-item">牛肉</li>
+                            </ul>
+                        </div>
+                        <!--购物车-->
+                        <div class="hd-cart">
+                            <i class="iconfont i-cart">&#xe66d;</i>
+                            <span class="hd-shop-text">购物车</span>
+                            <span class="hd-shop-num">0</span>
+                        </div>
+                    </div>
+                    <nav class="hd-nav">
+                        <div class="hd-fixed-center">
+                            <ul class="hd-nav-items">
+                            </ul>
+                            <div class="hd-fixed-right">
+                                <div class="hd-cart hd-cart-fixed">
+                                    <i class="iconfont i-cart-fixed">&#xe66d;</i>
+                                    <span>购物车</span>
+                                    <span class="hd-shop-num"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!--主体内容-->
+        <div class="sp-container">
+            <div class="cm-path">
+                <a href="index.html">首页</a>
+                <span>></span>
+                <span>上架管理</span>
+            </div>
+            <div class="cm-sidebar">
+                <div class="user-img-outer">
+                    <img class="user-img" src="">
+                    <div class="user-shade">
+                        <span>修改</span>
+                    </div>
+                </div>
+                <p class="user-name"></p>
+                <ul class="cm-sidebar-menu">
+                    <li>
+                        <a href="adminIndex">用户管理</a>
+                    </li>
+                    <li>
+                        <a href="adminGoods">商品管理</a>
+                    </li>
+                    <li>
+                        <a class="text-selected" href="adminShelves">上架管理</a>
+                    </li>
+                    <li>
+                        <a href="adminSort">类别管理</a>
+                    </li>
+                    <li>
+                        <a href="adminOrderList">订单管理</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="cm-main">
+                <h3 class="cm-main-title">上架管理</h3>
+                <!--可用金额明细-->
+                <div class="detail">
+                    <div class="clearfix">
+                        <div class="detail-menu">
+                            <div class="text-selected" data-offset="0">全部</div>
+                            <span class="detail-menu-border">|</span>
+                            <div class="in-price" data-offset="0">上架</div>
+                            <span class="detail-menu-border">|</span>
+                            <div class="out-price" data-offset="0">下架</div>
+                        </div>
+                    </div>
+                    <div class="detail-content">
+                        <div class="detail-list-title">
+                            <div>商品名称</div>
+                            <div>商品价格</div>
+                            <div>商品库存</div>
+                            <div>图片路径</div>
+                            <div>商品类别</div>
+                            <div>操作</div>
+                        </div>
+                        <!--金额列表-->
+                        <ul class="detail-list">
+                            <li class="detail-item">
+                                <div>大幅答复</div>
+                                <div>地方</div>
+                                <div>大幅答复</div>
+                                <div>地方</div>
+                                <div class="price-num">5555</div>
+                                <div><button class="cm-btn-sm pay-btn-active" id="deleteUser">上架/下架</button></div>
+                            </li>
+                        </ul>
+                        <div class="paging">
+                            <span onclick="flip('pre')">上一页</span>
+                            <span onclick="flip('next')">下一页</span>
+                        </div>
+                    </div>
+                    <!--空白内容-->
+                    <div class="cm-empty score-empty">
+                        <img src="img/wallet-empty.png">
+                        <div class="cm-empty-text">
+                            <p>您的钱包还是空的，赶紧去充值吧！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--尾页-->
+        <footer>
+            <div class="sp-container">
+                <ul class="ft-service">
+                    <li class="s1">
+                        <span>快速送达</span>
+                    </li>
+                    <li class="s2">
+                        <span>全程冷链</span>
+                    </li>
+                    <li class="s3">
+                        <span>菜市直购</span>
+                    </li>
+                    <li class="s4">
+                        <span>贴心服务</span>
+                    </li>
+                </ul>
+                <div class="ft-info-main">
+                    <div class="ft-items">
+                        <p class="ft-items-phone">(020)82517230</p>
+                        <p class="ft-items-time">周一至周日 8:00-18:00</p>
+                        <a href="javascript:void(0)" class="ft-items-feedback" id="feedBack">用户反馈</a>
+                    </div>
+                    <i class="ft-separator"></i>
+                    <dl class="ft-items">
+                        <dt>膳品宅送</dt>
+                        <dd>
+                            <a href="about.html?to=1" title="关于我们">关于我们</a>
+                        </dd>
+                        <dd>
+                            <a href="about.html?to=2" title="加入我们">加入我们</a>
+                        </dd>
+                        <dd>
+                            <a href="about.html?to=3" title="联系我们">联系我们</a>
+                        </dd>
+                    </dl>
+                    <i class="ft-separator"></i>
+                    <div class="ft-items ft-code">
+                        <img src="img/ft-qr-code-app.png">
+                        <p>扫描下载APP</p>
+                    </div>
+                    <i class="ft-separator"></i>
+                    <div class="ft-items ft-code">
+                        <img src="img/official-accounts-code.png">
+                        <p>关注微信号</p>
+                    </div>
+                </div>
+                <div class="ft-copyright">
+                    <p>©2017 广州膳品科技网络有限公司3pzs.com 版权所有</p>
+                    <p><a target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备17028008号-1</a></p>
+                </div>
+            </div>
+        </footer>
+
+        <!--设置密码弹窗-->
+        <div class="cm-shade">
+            <!--设置用户名弹窗-->
+            <div class="user-name-modal">
+                <p class="user-title">
+                    设置用户名
+                    <i class="iconfont close close-username-modify">&#xe60b;</i>
+                </p>
+                <input class="username-modify" type="text" placeholder="请输入新的用户名" maxlength="10">
+                <button class="btn-special confirm-btn">确定</button>
+            </div>
+            <!-- 设置头像 -->
+            <div class="user-img-modal">
+                <p class="user-title">
+                    设置头像
+                    <i class="iconfont close close-userimg-modify">&#xe60b;</i>
+                </p>
+
+                <form name="imgForm" id="imgForm" method="post" enctype="multipart/form-data">
+                    <div class="user-img-upload"></div>
+                    <input type="hidden" id="action" name="action" value="upload_head_img"/>
+                    <input type="hidden" id="returnUrl" name="return_url" value=""/>
+                    <div class="cm-btn-sm upload">
+                        <input type="file" id="files" name="files" accept="image/jpeg" onchange="readAsDataURL()"/>
+                        <p>重新上传</p>
+                    </div>
+
+                    <input type="button" id="imgUpload" class="cm-btn-sm" value="确定"/>
+
+                </form>
+            </div>
+            <!--验证身份弹窗-->
+            <div class="set-password">
+                <p class="close-bar">
+                    <i class="iconfont i-close-btn">&#xe60b;</i>
+                </p>
+                <div class="set-password-tab">
+                    <span class="set-password-select">验证身份</span>
+                    <span id="setPasswordBg">设置密码</span>
+                </div>
+                <div class="set-identify-cont">
+                    <input class="password-phone" id="phone" type="text" autocomplete="off" placeholder="请输入手机号码" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
+                    <p class="input-error" id="errorPhone">
+                        <i class="iconfont i-error">&#xe628;</i>
+                        <span class="error-text" id="errorPhoneNum">请输入11位手机号</span>
+                    </p>
+                    <div class="identify">
+                        <input id="identifyCode" class="identify-code" type="text" maxlength="4" autocomplete="off" placeholder="请输入验证码" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
+                        <input id="identifySend" class="identify-send" type="button" value="发送验证码" disabled="disabled">
+                    </div>
+                    <p class="input-error" id="errorIdentify">
+                        <i class="iconfont i-error">&#xe628;</i>
+                        <span class="error-text" id="errorIdentifyText">请输入4位验证码</span>
+                    </p>
+                    <button class="next-btn" id="nextBtn" disabled="disabled">下一步</button>
+                </div>
+                <div class="set-password-cont">
+                    <input class="identify-code password-code" id="setPassword" type="password" placeholder="请输入6位密码" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
+                    <p class="input-error" id="setPasswordText">
+                        <i class="iconfont i-error">&#xe628;</i>
+                        <span class="error-text" id="setPasswordSix">请输入6位密码</span>
+                    </p>
+                    <input class="identify-code password-code" id="reSetPassword" type="password" placeholder="请重新输入密码" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
+                    <p class="input-error" id="reSetPasswordText">
+                        <i class="iconfont i-error">&#xe628;</i>
+                        <span class="error-text" id="reSetPasswordTextSix">密码不一致,请重新输入</span>
+
+                    </p>
+                    <button class="next-btn" id="ensure">确定</button>
+                </div>
+            </div>
+            <!--设置密码成功弹窗-->
+            <div class="password-success">
+                <p>设置密码成功</p>
+                <button class="cm-btn-md cm-btn-active" id="goBackThis">返回</button>
+            </div>
+        </div>
+
+        <script src="js/vendor/jquery-3.1.1.js"></script>
+        <script src="js/default.js"></script>
+    </body>
+</html>

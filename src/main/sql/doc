@@ -1,0 +1,13 @@
+mybatis参考文档：
+http://www.mybatis.org/mybatis-3/zh/getting-started.html
+
+logback参考文档：
+https://logback.qos.ch/manual/configuration.html
+
+管理员模块
+管理员登陆页 adminLogin
+用户管理 adminIndex
+商品管理 adminGoods
+上架管理 adminShelves
+类别管理 adminSort
+订单管理 adminOrderList
