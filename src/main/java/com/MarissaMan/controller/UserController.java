@@ -159,6 +159,75 @@ public class UserController {
         return JSON.toJSONString(result);
     }
 
+    @RequestMapping(value = "/userToLogin", produces = {"application/text;charset=UTF-8"})
+    @ResponseBody
+    public String userToLogin(String params) {
+        System.out.println("-----用户登陆--------");
+        System.out.println(params + " before");
+        Msg msg;
+        Boolean isSuccess;
+        try {
+            User user = JSON.parseObject(params, User.class);
+            String name = user.getName();
+            User user1 = userService.getUserByName(name);
+            if (user.getPassword().equals(user1.getPassword())) {
+                msg = new Msg("用户登陆成功");
+                isSuccess = true;
+            }else {
+                isSuccess = false;
+                msg = new Msg("用户密码不正确");
+            }
+
+            System.out.println(params + " into");
+        } catch (Exception e) {
+            msg = new Msg("该用户不存在");
+            isSuccess = false;
+            System.out.println(e.getMessage());
+        }
+        System.out.println(params + " after");
+        Result<Msg> result = new Result(isSuccess, msg);
+        return JSON.toJSONString(result);
+    }
+
+
+    @RequestMapping(value = "/userToRegister", produces = {"application/text;charset=UTF-8"})
+    @ResponseBody
+    public String userToRegister(String params) {
+        System.out.println("-----用户注册--------");
+        System.out.println(params + " before");
+        Msg msg;
+        Boolean isSuccess;
+        try {
+            //需要调用函数把字符串转化为对应的Bean
+            User user = JSON.parseObject(params, User.class);
+            user.setMoney(0.0);
+            int flag = userService.addUser(user);
+            System.out.println(user.toString());
+            if (flag == 1) {
+                msg = new Msg("用户注册成功");
+                isSuccess = true;
+            } else if (flag == 0) {
+                isSuccess = false;
+                msg = new Msg("用户注册失败");
+            } else {
+                isSuccess = false;
+                msg = new Msg("用户注册发生异常");
+            }
+
+            System.out.println(params + " into");
+        } catch (Exception e) {
+            msg = new Msg("用户注册抛出异常");
+            isSuccess = false;
+            System.out.println(e.getMessage());
+        }
+        System.out.println(params + " after");
+        Result<Msg> result = new Result(isSuccess, msg);
+        return JSON.toJSONString(result);
+    }
+
+
+
+
 //    @RequestMapping(value="/{name}", method = RequestMethod.GET)
 //    public @ResponseBody Shop getShopInJSON(@PathVariable String name) {
 //        System.out.println("-----请求json数据--------");

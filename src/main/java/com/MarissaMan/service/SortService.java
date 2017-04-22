@@ -12,4 +12,6 @@ public interface SortService {
     int updateSort(Sort sort);
 
     List<Sort> getAllSort();
+
+
 }

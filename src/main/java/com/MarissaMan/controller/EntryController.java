@@ -6,8 +6,11 @@ import com.MarissaMan.dto.Msg;
 import com.MarissaMan.entity.Sort;
 import com.MarissaMan.service.SortService;
 import com.alibaba.fastjson.JSON;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -33,6 +36,11 @@ public class EntryController {
     @RequestMapping("/goodsList")
     public String goodsList() {
         return "goodsList";//WEB-INF/jsp/"list".jsp
+    }
+
+    @RequestMapping("/userLogin")
+    public String userLogin() {
+        return "userLogin";
     }
 
     @RequestMapping(value = "/amdinToLogin", produces = {"application/text;charset=UTF-8"})

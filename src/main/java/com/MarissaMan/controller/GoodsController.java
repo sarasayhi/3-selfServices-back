@@ -5,8 +5,11 @@ import com.MarissaMan.dto.Result;
 import com.MarissaMan.entity.Goods;
 import com.MarissaMan.service.GoodsService;
 import com.alibaba.fastjson.JSON;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -77,6 +80,41 @@ public class GoodsController {
             System.out.println(" into");
         } catch (Exception e) {
             msg = new Msg("商品列表获取失败");
+            isSuccess = false;
+            System.out.println(e.getMessage());
+            goodsList = null;
+        }
+        System.out.println(" after");
+        Result<List> result = new Result(isSuccess, goodsList);
+        return JSON.toJSONString(result);
+    }
+
+    @RequestMapping(value = "/getGoodsList/{sortId}", produces = {"application/text;charset=UTF-8"})
+    @ResponseBody
+    public String getGoodsListBySort(@PathVariable("sortId") Integer sortId) {
+        System.out.println("-----获取对应类别商品列表--------");
+        System.out.println(" before" + sortId);
+        Msg msg;
+        Boolean isSuccess;
+        List<Goods> goodsList;
+        try {
+            if(sortId == 0){
+                goodsList = goodsService.getAllGoods();
+            } else {
+                System.out.print(sortId);
+                goodsList = goodsService.getGoodsBySort(sortId);
+            }
+            if (!goodsList.isEmpty()) {
+                msg = new Msg("对应类别商品列表不为空");
+                isSuccess = true;
+            } else {
+                isSuccess = false;
+                msg = new Msg("对应类别商品列表为空");
+            }
+
+            System.out.println(" into");
+        } catch (Exception e) {
+            msg = new Msg("对应类别商品列表获取失败");
             isSuccess = false;
             System.out.println(e.getMessage());
             goodsList = null;

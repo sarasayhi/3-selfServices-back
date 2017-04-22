@@ -117,7 +117,7 @@
     select
     goods_id,name,price,stock,url,sort,status
     from goods
-    where name = #{sort,jdbcType=INTEGER}
+    where sort = #{sort,jdbcType=INTEGER}
   </select>
   <!--by myself 4-->
   <select id="selectByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

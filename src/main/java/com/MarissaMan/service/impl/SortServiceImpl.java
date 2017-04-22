@@ -27,4 +27,5 @@ public class SortServiceImpl implements SortService {
     public List<Sort> getAllSort() {
         return sortDao.selectAllSort();
     }
+
 }
