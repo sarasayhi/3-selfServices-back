@@ -1,0 +1,165 @@
+/* Copyright (C) 2016
+ * This file is part of the Epiphyllum B7 System.
+ *
+ * filename : goods_list.css
+ * function :
+ * action   :
+ * version  : 7.1
+ * author   : MarissaMan
+ * date     : 2017-01-12
+ * modify   :
+ */
+/*样式重置*/
+.cm-col-5 img {
+    margin: 10px;
+    width: 205px;
+    height: 205px;
+}
+
+.cm-col-5 {
+    position: relative;
+}
+
+.goods-spec,
+.goods-attr{
+    float: left;
+    padding-right: 10px;
+}
+
+/*start : 二级菜单栏*/
+.subdivision {
+    height: 48px;
+    line-height: 48px;
+}
+
+.subdivision a,
+.subdivision span {
+    margin: 0 15px;
+}
+
+.subdivision-left {
+    float: left;
+}
+
+.subdivision-left a:hover {
+    color: #78885b;
+}
+
+.subdivision-right {
+    float: right;
+}
+
+.subdivision-right span {
+    position: relative;
+    float: right;
+    width: 42px;
+    cursor: pointer;
+}
+
+.subdivision-right span:hover {
+    color: #78885b;
+}
+
+.arrow-up {
+    position: absolute;
+    top: 17px;
+    right: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #bebebe;
+}
+
+.arrow-up-active {
+    border-bottom: 5px solid #78885b;
+}
+
+.arrow-down {
+    position: absolute;
+    bottom: 17px;
+    right: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #bebebe;
+}
+
+.arrow-down1 {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #bebebe;
+}
+
+.arrow-down-active {
+    border-top: 5px solid #78885b;
+}
+
+/*start 月售信息*/
+.cm-msg {
+    color: #929292;
+    font-size: 12px;
+}
+
+.cm-msg .msg-tit {
+    display: inline;
+    padding: 0 15px;
+    line-height: 20px;
+}
+
+.cm-msg .msg-num {
+    font-style: normal;
+}
+
+.cm-msg .border {
+    display: inline;
+    font-style: normal;
+    font-size: 10px;
+    vertical-align: text-top;
+}
+
+/*start : 加载更多*/
+.load-text {
+    margin: 50px auto;
+    width: 703px;
+    line-height: 40px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.load {
+    cursor: pointer;
+    color: #929292;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, .015);
+}
+
+.load:hover {
+    color: #fff;
+    background-color: #bebebe;
+}
+
+/*start 评价和收藏条*/
+.cm-bar {
+    margin: auto;
+    width: 205px;
+    height: 40px;
+    line-height: 40px;
+    background-color: transparent;
+}
+
+.cm-collect {
+    float: right;
+}
+
+.cm-collect-success {
+    display: none;
+    margin: 8px;
+    vertical-align: top;
+}
+
+.cm-collect .iconfont {
+    font-size: 20px;
+    cursor: pointer;
+}
+

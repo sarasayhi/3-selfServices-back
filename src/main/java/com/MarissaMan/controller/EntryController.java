@@ -3,12 +3,15 @@ package com.MarissaMan.controller;
 import com.MarissaMan.dto.PassPort;
 import com.MarissaMan.dto.Result;
 import com.MarissaMan.dto.Msg;
+import com.MarissaMan.entity.Sort;
+import com.MarissaMan.service.SortService;
 import com.alibaba.fastjson.JSON;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created by saras on 2017/4/19.
@@ -19,9 +22,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //页面跳转
 public class EntryController {
 
+    @Autowired
+    SortService sortService;
+
     @RequestMapping("/")
     public String index() {
-        return "adminIndex";//WEB-INF/jsp/"list".jsp
+        return "adminGoods";//WEB-INF/jsp/"list".jsp
+    }
+
+    @RequestMapping("/goodsList")
+    public String goodsList() {
+        return "goodsList";//WEB-INF/jsp/"list".jsp
     }
 
     @RequestMapping(value = "/amdinToLogin", produces = {"application/text;charset=UTF-8"})
@@ -83,6 +94,68 @@ public class EntryController {
     public String adminOrderList() {
         return "adminOrderList";
     }
+
+    @RequestMapping(value = "/getSortList", produces = {"application/text;charset=UTF-8"})
+    @ResponseBody
+    public String getSortList() {
+        System.out.println("-----获取商品类别列表--------");
+        System.out.println(" before");
+        Msg msg;
+        Boolean isSuccess;
+        List<Sort> sortList;
+        try {
+            sortList = sortService.getAllSort();
+            if (!sortList.isEmpty()) {
+                msg = new Msg("类别列表不为空");
+                isSuccess = true;
+            } else {
+                isSuccess = false;
+                msg = new Msg("类别列表为空");
+            }
+
+            System.out.println(" into");
+        } catch (Exception e) {
+            msg = new Msg("类别列表获取失败");
+            isSuccess = false;
+            System.out.println(e.getMessage());
+            sortList = null;
+        }
+        System.out.println(" after");
+        Result<List> result = new Result(isSuccess, sortList);
+        return JSON.toJSONString(result);
+    }
+
+    @RequestMapping(value = "/updateSort", produces = {"application/text;charset=UTF-8"})
+    @ResponseBody
+    public String updateSort(String params) {
+            System.out.println("-----更新类别名称--------");
+            System.out.println(params + " before");
+            Msg msg;
+            Boolean isSuccess;
+            try {
+                Sort sort = JSON.parseObject(params, Sort.class);
+                int flag = sortService.updateSort(sort);
+                if (flag == 1) {
+                    msg = new Msg("更新类别名称成功");
+                    isSuccess = true;
+                } else if (flag == 0) {
+                    isSuccess = false;
+                    msg = new Msg("更新类别名称失败");
+                } else {
+                    isSuccess = false;
+                    msg = new Msg("更新类别名称发生异常");
+                }
+
+                System.out.println(params + " into");
+            } catch (Exception e) {
+                msg = new Msg("更新用户抛出异常");
+                isSuccess = false;
+                System.out.println(e.getMessage());
+            }
+            System.out.println(params + " after");
+            Result<Msg> result = new Result(isSuccess, msg);
+            return JSON.toJSONString(result);
+        }
 
 //    @RequestMapping("/adminToLogin")
 //    public String adminToLogin(@Param("adminName") String name, @Param("adminPassword") String password) {

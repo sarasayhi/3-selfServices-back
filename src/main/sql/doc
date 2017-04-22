@@ -6,8 +6,33 @@ https://logback.qos.ch/manual/configuration.html
 
 管理员模块
 管理员登陆页 adminLogin
-用户管理 adminIndex
+用户管理 adminIndex 完成 优化：输入限制 分页
 商品管理 adminGoods
-上架管理 adminShelves
+上架管理 adminShelves 批量上架
 类别管理 adminSort
 订单管理 adminOrderList
+
+商品路径
+商品类别选择
+输入框输入限制，只能输入数字或者文字
+输入框添加默认值
+用户登录后的token
+
+用户登录 登陆页
+浏览商品 商品页
+添加购物车
+购物车结算
+确认订单 出现订单
+输入密码 完成支付
+返回购物码
+
+用户个人中心
+修改信息
+查看订单
+
+用户token
+展示
+加入购物车
+确认结算
+支付密码
+后台商品库存更新，用户余额更新

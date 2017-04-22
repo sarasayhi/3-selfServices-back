@@ -1,7 +1,6 @@
 package com.MarissaMan.service;
 
 import com.MarissaMan.entity.Goods;
-import com.MarissaMan.entity.User;
 
 import java.util.List;
 
@@ -16,11 +15,13 @@ public interface GoodsService {
 
     int updateGoods(Goods goods);
 
-    User getGoodsById(Integer id);
+    Goods getGoodsById(Integer id);
 
-    User getGoodsByName(String name);
-
-    User getGoodsByMoney(Double money);
+    Goods getGoodsByName(String name);
 
     List<Goods> getAllGoods();
+
+    List<Goods> getGoodsBySort(Integer sort);
+
+    List<Goods> getGoodsByStatus(Integer status);
 }

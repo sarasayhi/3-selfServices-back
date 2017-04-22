@@ -99,6 +99,33 @@
     from goods
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </select>
+  <!--by myself 1-->
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    goods_id,name,price,stock,url,sort,status
+    from goods
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <!--by myself 2-->
+  <select id="selectAllGoods" resultMap="BaseResultMap">
+    select
+    goods_id,name,price,stock,url,sort,status
+    from goods
+  </select>
+  <!--by myself 3-->
+  <select id="selectBySort" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    goods_id,name,price,stock,url,sort,status
+    from goods
+    where name = #{sort,jdbcType=INTEGER}
+  </select>
+  <!--by myself 4-->
+  <select id="selectByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    goods_id,name,price,stock,url,sort,status
+    from goods
+    where name = #{status,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from goods
     where goods_id = #{goodsId,jdbcType=INTEGER}

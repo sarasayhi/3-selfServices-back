@@ -10,13 +10,13 @@
  * modify   : 此文件如需修改,请联系carl
  */
 
-(function() {
+(function () {
     // 私有变量
     var TITLE = '膳品宅送',
         PRECISION_QTY = 0,
         PRECISION_MONEY = 2,
         API_URL = {
-        'addUser':'user/addUser'
+            'addUser': 'user/addUser'
         },
         IM_USER_KEY = '491ef3323f36b63e49a631e821c14b97';
 
@@ -61,6 +61,22 @@
         },
         get userToken() {
             return epm.getLocalItem(epm.k.USER_TOKEN);
+        },
+        set goodsSortList(value) {
+            if (typeof value !== 'string') {
+                value = JSON.stringify(value);
+            }
+
+            epm.setLocalItem(epm.k.SORT_LIST, value);
+        },
+        get goodsSortList() {
+            var value= epm.getLocalItem(epm.k.SORT_LIST);
+
+            try {
+                return JSON.parse(value);
+            } catch (err) {
+                return value;
+            }
         },
 
         set address(value) {
@@ -144,19 +160,20 @@
         MARKET_LIST: 'MARKET_LIST',
         GOODS_CLASS_LIST: 'GOODS_CLASS_LIST',
         BUYER: 'BUYER',
-        SELECTED_CART: 'SELECTED_CART'
+        SELECTED_CART: 'SELECTED_CART',
+        SORT_LIST: 'SORT_LIST'
     };
 
     // 业务相关
     epm.b = {
-        isLogin: function() {
+        isLogin: function () {
             var user_token = epm.getLocalItem(epm.k.USER_TOKEN);
             return !epm.isEmpty(user_token);
         },
-        logOut: function() {
+        logOut: function () {
             var params = {};
             params['action'] = 'clear_session';
-            epm.ajax(params, function(data) {
+            epm.ajax(params, function (data) {
                 epm.removeLocalItem(epm.k.USER_TOKEN);
                 epm.removeSessionItem(epm.k.BUYER);
                 epm.removeSessionItem(epm.k.ADDRESS_LIST);
@@ -176,7 +193,7 @@
             });
         },
 
-        addSearchKeywords: function(value, type) {
+        addSearchKeywords: function (value, type) {
             var item;
 
             var keys = epm.getLocalItem(epm.k.SEARCH_KEYWORDS);
@@ -187,7 +204,7 @@
             }
 
             var isExist = false;
-            $.each(keys, function(i, v) {
+            $.each(keys, function (i, v) {
                 if (v['text'] == value) {
                     isExist = true;
                     v['times'] = parseInt(v['times']) + 1;
@@ -204,7 +221,7 @@
 
             epm.setLocalItem(epm.k.SEARCH_KEYWORDS, JSON.stringify(keys));
         },
-        getSearchKeywords: function() {
+        getSearchKeywords: function () {
             var value = epm.getLocalItem(epm.k.SEARCH_KEYWORDS);
 
             try {
@@ -218,7 +235,7 @@
             }
 
             // 排序
-            value.sort(function(a, b) {
+            value.sort(function (a, b) {
                 if (a['times'] > b['times']) {
                     return -1;
                 }
@@ -234,7 +251,7 @@
             return value;
         },
 
-        setCart: function(shopIID, goodsIID, goodsAmount, callBack) {
+        setCart: function (shopIID, goodsIID, goodsAmount, callBack) {
             if (!epm.b.isLogin()) {
                 window.location.href = 'login.html';
                 return;
@@ -252,15 +269,15 @@
             params['goods_iid'] = goodsIID;
             params['goods_amount'] = goodsAmount;
 
-            epm.ajax(params, function(data) {
-                spInitCartAmount(function() {
+            epm.ajax(params, function (data) {
+                spInitCartAmount(function () {
                     if ($.isFunction(callBack)) {
                         callBack(data);
                     }
                 });
             });
         },
-        addCart: function(shopIID, goodsIID, amount, callBack) {
+        addCart: function (shopIID, goodsIID, amount, callBack) {
             if (!epm.b.isLogin()) {
                 window.location.href = 'login.html';
                 return;
@@ -272,15 +289,15 @@
             params['goods_iid'] = goodsIID;
             params['goods_amount'] = amount;
 
-            epm.ajax(params, function(data) {
-                spInitCartAmount(function() {
+            epm.ajax(params, function (data) {
+                spInitCartAmount(function () {
                     if ($.isFunction(callBack)) {
                         callBack(data);
                     }
                 });
             });
         },
-        subCart: function(shopIID, goodsIID, callBack) {
+        subCart: function (shopIID, goodsIID, callBack) {
             if (!epm.b.isLogin()) {
                 window.location.href = 'login.html';
                 return;
@@ -292,15 +309,15 @@
             params['goods_iid'] = goodsIID;
             params['goods_amount'] = 1;
 
-            epm.ajax(params, function(data) {
-                spInitCartAmount(function() {
+            epm.ajax(params, function (data) {
+                spInitCartAmount(function () {
                     if ($.isFunction(callBack)) {
                         callBack(data);
                     }
                 });
             });
         },
-        removeCart: function(cartIID, callBack) {
+        removeCart: function (cartIID, callBack) {
             if (!epm.b.isLogin()) {
                 window.location.href = 'login.html';
                 return;
@@ -310,15 +327,15 @@
             params['action'] = 'remove_cart';
             params['cart_iid'] = cartIID;
 
-            epm.ajax(params, function(data) {
-                spInitCartAmount(function() {
+            epm.ajax(params, function (data) {
+                spInitCartAmount(function () {
                     if ($.isFunction(callBack)) {
                         callBack(data);
                     }
                 });
             });
         },
-        removeCarts: function(cartIIDs, callBack) {
+        removeCarts: function (cartIIDs, callBack) {
             if (!epm.b.isLogin()) {
                 window.location.href = 'login.html';
                 return;
@@ -333,8 +350,8 @@
             params['action'] = 'remove_carts';
             params['cart_iids'] = cartIIDs;
 
-            epm.ajax(params, function(data) {
-                spInitCartAmount(function() {
+            epm.ajax(params, function (data) {
+                spInitCartAmount(function () {
                     if ($.isFunction(callBack)) {
                         callBack(data);
                     }
@@ -342,7 +359,7 @@
             });
         },
 
-        addGoodsLike: function(shopIID, goodsIID, callBack) {
+        addGoodsLike: function (shopIID, goodsIID, callBack) {
             if (!epm.b.isLogin()) {
                 window.location.href = 'login.html';
                 return;
@@ -355,7 +372,7 @@
 
             epm.ajax(params, callBack);
         },
-        addShopLike: function(shopIID, callBack) {
+        addShopLike: function (shopIID, callBack) {
             if (!epm.b.isLogin()) {
                 window.location.href = 'login.html';
                 return;
@@ -367,7 +384,7 @@
 
             epm.ajax(params, callBack);
         },
-        removeGoodsLike: function(shopIID, goodsIID, callBack) {
+        removeGoodsLike: function (shopIID, goodsIID, callBack) {
             if (!epm.b.isLogin()) {
                 window.location.href = 'login.html';
                 return;
@@ -380,7 +397,7 @@
 
             epm.ajax(params, callBack);
         },
-        removeShopLike: function(shopIID, callBack) {
+        removeShopLike: function (shopIID, callBack) {
             if (!epm.b.isLogin()) {
                 window.location.href = 'login.html';
                 return;
@@ -392,7 +409,7 @@
 
             epm.ajax(params, callBack);
         },
-        addSelectedCart: function(cartIID) {
+        addSelectedCart: function (cartIID) {
             var cartArray = [];
             cartArray = JSON.parse(epm.getLocalItem(epm.k.SELECTED_CART));
             if (null != cartArray && cartArray.length > 0) {
@@ -405,10 +422,10 @@
             cartArray.push(cartIID);
             epm.setLocalItem(epm.k.SELECTED_CART, JSON.stringify(cartArray));
         },
-        getSelectedCart: function() {
+        getSelectedCart: function () {
             return JSON.parse(epm.getLocalItem(epm.k.SELECTED_CART));
         },
-        removeSelectedCart: function(cartIID) {
+        removeSelectedCart: function (cartIID) {
             var cartArray = JSON.parse(epm.getLocalItem(epm.k.SELECTED_CART));
             if (null == cartArray) return;
             var _index = $.inArray(cartIID, cartArray);
@@ -420,7 +437,7 @@
         }
     };
 
-    epm.setSessionItem = function(key, value) {
+    epm.setSessionItem = function (key, value) {
         if (window.sessionStorage) {
             sessionStorage.setItem(key, value);
         } else {
@@ -429,7 +446,7 @@
         }
     };
 
-    epm.getSessionItem = function(key) {
+    epm.getSessionItem = function (key) {
         if (window.sessionStorage) {
             return sessionStorage.getItem(key);
         } else {
@@ -438,7 +455,7 @@
         }
     };
 
-    epm.removeSessionItem = function(key) {
+    epm.removeSessionItem = function (key) {
         if (window.sessionStorage) {
             sessionStorage.removeItem(key);
         } else {
@@ -447,7 +464,7 @@
         }
     };
 
-    epm.setLocalItem = function(key, value) {
+    epm.setLocalItem = function (key, value) {
         if (window.localStorage) {
             localStorage.setItem(key, value);
         } else {
@@ -456,7 +473,7 @@
         }
     };
 
-    epm.getLocalItem = function(key) {
+    epm.getLocalItem = function (key) {
         if (window.localStorage) {
             return localStorage.getItem(key);
         } else {
@@ -465,7 +482,7 @@
         }
     };
 
-    epm.removeLocalItem = function(key) {
+    epm.removeLocalItem = function (key) {
         if (window.localStorage) {
             localStorage.removeItem(key);
         } else {
@@ -474,7 +491,7 @@
         }
     };
 
-    epm.getNumber = function(num) {
+    epm.getNumber = function (num) {
         if (isNaN(num) || num === null || num === '') {
             return num;
         }
@@ -482,7 +499,7 @@
         return num.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
     };
 
-    epm.getDateTime = function(o) {
+    epm.getDateTime = function (o) {
         if (o == null || o == '') {
             return null;
         }
@@ -507,7 +524,7 @@
             + (('' + second).length < 2 ? '0' : '') + second;
     };
 
-    epm.getDate = function(o) {
+    epm.getDate = function (o) {
         if (o == null || o == '') {
             return null;
         }
@@ -526,13 +543,13 @@
             + month + '-' + (('' + day).length < 2 ? '0' : '') + day;
     };
 
-    epm.getFloat = function(o) {
+    epm.getFloat = function (o) {
         var ret = parseFloat(o);
 
         return isNaN(ret) ? 0 : ret;
     };
 
-    epm.getQty = function(o) {
+    epm.getQty = function (o) {
         var ret = this.getFloat(o);
 
         if (PRECISION_QTY == 0) {
@@ -546,7 +563,7 @@
         }
     };
 
-    epm.getMoney = function(o) {
+    epm.getMoney = function (o) {
         var ret = this.getFloat(o);
 
         if (PRECISION_MONEY == 2) {
@@ -560,7 +577,7 @@
         }
     };
 
-    epm.getUrlParam = function(name) {
+    epm.getUrlParam = function (name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) {
@@ -570,7 +587,7 @@
         return null;
     };
 
-    epm.isEmpty = function(o) {
+    epm.isEmpty = function (o) {
         if (o === undefined) {
             return true;
         }
@@ -582,11 +599,11 @@
         return $.trim(o.toString()) == '';
     };
 
-    epm.isArray = function(o) {
+    epm.isArray = function (o) {
         return Object.prototype.toString.call(o) === '[object Array]';
     };
 
-    epm.ajax = function(operation,params, success, successError, fail, always) {
+    epm.ajax = function (operation, params, success, successError, fail, always) {
         // if (!epm.isEmpty(params)
         //     && !epm.isEmpty(epm.c.userToken)) {
         //     params['user_token'] = epm.c.userToken;
@@ -594,7 +611,7 @@
         alert(API_URL[operation]);
         $.ajax(API_URL[operation], {
             params: JSON.stringify(params)
-        }).done(function(data, status, xhr) {
+        }).done(function (data, status, xhr) {
             if (data == undefined || data == null || data.length == 0) {
                 alert('服务器繁忙');
                 return;
@@ -630,7 +647,7 @@
                 success(data);
             }
 
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail(function (jqXHR, textStatus, errorThrown) {
             if ($.isFunction(fail)) {
                 fail();
             } else {
@@ -638,24 +655,35 @@
                 alert('服务器繁忙，请稍候重试' + msg);
             }
 
-        }).always(function() {
+        }).always(function () {
             if ($.isFunction(always)) {
                 always();
             }
         });
     };
 
-
-
     window.epm = epm;
 })();
 
-$(document).ready(function() {
+$(document).ready(function () {
+    //获取类别列表
+    $.post("getSortList", function (result) {
+        var resultObject = JSON.parse(result);
+        var sortList = resultObject['data'];
+        var params = {};
+        $.each(sortList,function (key,value) {
+            var id = value['sortId'];
+            params[id] = value['sortName'];
+        });
+        if(params !== epm.c.goodsSortList){
+            epm.c.goodsSortList=JSON.stringify(params);
+        }
+    });
 
-    //
+    InitGoodsSortList();
+
     // spCommonInit();
 
-    //
     if ($.isFunction(window.pageInit)) {
         pageInit();
     }
@@ -719,7 +747,7 @@ function spInitStaticResource() {
     $('#menu').html(html);
 
     // 输入词出现搜索相关内容下拉框
-    $('#search').on('input', function() {
+    $('#search').on('input', function () {
         var searchText = $('#searchSelect').val();
 
         $('.hd-search-list').show();
@@ -729,13 +757,13 @@ function spInitStaticResource() {
         } else if (searchText == '档口') {
             getSearchKeyList(1);
         }
-    }).on('keydown', function(e) {
+    }).on('keydown', function (e) {
         if (e.keyCode == 13) {
             $('#btnSearch').click();
         }
     });
 
-    $('#searchSelect').on('click', function() {
+    $('#searchSelect').on('click', function () {
         $('.hd-search-list').hide();
     });
 
@@ -748,7 +776,7 @@ function spInitStaticResource() {
     }
 
     // 点击搜索按钮
-    $('#btnSearch').on('click', function() {
+    $('#btnSearch').on('click', function () {
         var keyword = replaceIllegalStr($('#search').val());
         var searchText = $('#searchSelect').val();
         if (!epm.isEmpty(keyword)) {
@@ -787,7 +815,7 @@ function spInitStaticResource() {
     }
 
     // 点击底部的用户反馈
-    $('#feedBack').on('click', function() {
+    $('#feedBack').on('click', function () {
         if (epm.b.isLogin()) {
             window.location.href = 'feedback.html';
         } else {
@@ -796,7 +824,7 @@ function spInitStaticResource() {
     });
 
     // 点击购物车按钮
-    $('.hd-cart').click(function() {
+    $('.hd-cart').click(function () {
         if (epm.b.isLogin()) {
             window.location.href = 'cart.html';
         } else {
@@ -805,12 +833,12 @@ function spInitStaticResource() {
     });
 
     // 点击回到顶部
-    $('#goTop').click(function() {
+    $('#goTop').click(function () {
         $('body,html').animate({scrollTop: 0}, 500);
     });
 
     //
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         var scrollValue = $(document).scrollTop();
 
         // 右悬浮区域按钮显示或隐藏
@@ -848,12 +876,12 @@ function getSearchKeyList(search_type) {
     params['search_type'] = search_type;
     params['search_key'] = $('#search').val();
 
-    epm.ajax(params, function(result) {
+    epm.ajax(params, function (result) {
         if (result.ans != 'ok') {
             return;
         }
 
-        $.each(result['data'], function(key, value) {
+        $.each(result['data'], function (key, value) {
             if ($('#searchSelect').val() == '商品') {
 
                 htmlSearch += '<li class="hd-search-item">'
@@ -873,57 +901,50 @@ function getSearchKeyList(search_type) {
 }
 
 // 初始化商品分类
-function spInitGoodsClass() {
+function InitGoodsSortList() {
 
-    var classList = epm.c.goodsClassList;
-    if (classList) {
-        initFinish(classList);
-
+    var sortList = epm.c.goodsSortList;
+    if (sortList) {
+        initFinish(sortList);
     } else {
-        var params = {};
-        params['action'] = 'get_class_list';
+        //获取类别列表
+        $.post("getSortList", function (result) {
+            var resultObject = JSON.parse(result);
+            var sortList = resultObject['data'];
+            var params = {};
+            $.each(sortList,function (key,value) {
+                var id = value['sortId'];
+                params[id] = value['sortName'];
+            });
+            if(params !== epm.c.goodsSortList){
+                epm.c.goodsSortList=JSON.stringify(params);
+            }
 
-        epm.ajax(params, function(data) {
-            data = data['data'];
-            epm.c.goodsClassList = data;
-
-            initFinish(data);
+            initFinish(epm.c.goodsSortList);
         });
     }
 
     function initFinish(data) {
-        var html = '<li><a href="index.html">首页</a></li>';
+        var html = '<li class="hd-active"><a href="/adminLogin?id=11">首页</a></li>';
 
-        $.each(data, function(index, value) {
-            html += '<li id="' + value['goods_class_sid'] + '">'
-                + '<a href="goods_list.html?sid=' + value['goods_class_sid'] + '">' + value['goods_class_name'] + '</a>'
-                + '<div class="hd-subnav-items">'
-                + '<ul class="sp-container">'
-                + '<li><a href="goods_list.html?sid=' + value['goods_class_sid'] + '">全部</a></li>';
-
-            $.each(value['details'], function(index, value) {
-                html += '<li>'
-                    + '<a href="goods_list.html?sid=' + value['goods_class_sid'] + '">' + value['goods_class_name'] + '</a>'
-                    + '</li>';
-            });
-
-            html += '</ul></div></li>';
+        $.each(data, function (id, name) {
+            html += '<li id="' + id + '"><a href="">' + name + '</a></li>';
         });
 
         var $target = $('.hd-nav-items');
         $target.html(html);
 
         //
-        var classId = epm.getUrlParam('sid');
-        var url = window.location.href;
-        if (classId != null && classId.toString().length > 1) {
-            $target.find('li').removeClass('hd-active');
-            $('#' + classId.substring(0, 3)).addClass('hd-active');
-            document.title = '膳品宅送-' + $('#' + classId.substring(0, 3)).find('a').html();
-        } else if (url.indexOf('goods_list') >= 0) {
-            $target.find('li').eq(0).addClass('hd-active');
-            document.title = '膳品宅送-人气商品';
-        }
+        // var classId = epm.getUrlParam('sid');
+        // var url = window.location.href;
+        // if (classId != null && classId.toString().length > 1) {
+        //     $target.find('li').removeClass('hd-active');
+        //     $('#' + classId.substring(0, 3)).addClass('hd-active');
+        //     document.title = '膳品宅送-' + $('#' + classId.substring(0, 3)).find('a').html();
+        // } else if (url.indexOf('goods_list') >= 0) {
+        //     $target.find('li').eq(0).addClass('hd-active');
+        //     document.title = '膳品宅送-人气商品';
+        // }
     }
 
 }
@@ -940,7 +961,7 @@ function spInitUser() {
     } else {
         var params = {};
         params['action'] = 'get_buyer_info';
-        epm.ajax(params, function(data) {
+        epm.ajax(params, function (data) {
             buyer = data['data'];
             epm.c.buyer = buyer;
             initFinish(buyer);
@@ -969,7 +990,7 @@ function spInitAddressList() {
     } else {
         var params = {};
         params['action'] = 'get_address_list';
-        epm.ajax(params, function(data) {
+        epm.ajax(params, function (data) {
             buyerAddressList = data['data'];
 
             epm.c.addressList = buyerAddressList;
@@ -985,7 +1006,7 @@ function spInitAddressList() {
         var $target = $('#addressList');
 
         var html = '';
-        $.each(data, function(index, value) {
+        $.each(data, function (index, value) {
 
             var address = epm.isEmpty(value['address_desc']) ? value['address'] : value['address_desc'];
 
@@ -997,7 +1018,7 @@ function spInitAddressList() {
         }
         $target.html(html);
 
-        $target.find('p:not(:last-child)').click(function() {
+        $target.find('p:not(:last-child)').click(function () {
             var selectedIndex = $(this).index();
             var longitude = $(this).attr('longitude');
             var latitude = $(this).attr('latitude');
@@ -1092,7 +1113,7 @@ function spInitCartAmount(callBack) {
     var params = {};
     params['action'] = 'get_cart_amount';
     params['market_iid'] = epm.c.market['market_iid'];
-    epm.ajax(params, function(data) {
+    epm.ajax(params, function (data) {
 
         var amount = 0;
         try {
@@ -1116,7 +1137,7 @@ function initHeadImg() {
     var params = {};
     params['action'] = 'get_buyer_info';
 
-    epm.ajax(params, function(data) {
+    epm.ajax(params, function (data) {
         var userName = data['data']['buyer_name'];
         var imgURL = epm.isEmpty(data['data']['image_url']) ? 'img/userpic_2.png' : epm.v.imageURLPrefix + data['data']['image_url'];
         $('.user-name').text(userName);
@@ -1129,7 +1150,7 @@ function initHeadImg() {
     var $userImgModal = $('.user-img-modal');
     // 打开修改头像弹窗
     $('.user-shade').on({
-        click: function() {
+        click: function () {
             $cmShade.fadeIn('100');
             $userImgModal.slideDown(200);
             var imgURL = $('.user-img').attr('src');
@@ -1139,7 +1160,7 @@ function initHeadImg() {
 
     // 关闭修改头像弹窗
     $('.close-userimg-modify').on({
-        click: function() {
+        click: function () {
             $cmShade.fadeOut(100);
             $userImgModal.slideUp(200);
         }
@@ -1147,7 +1168,7 @@ function initHeadImg() {
 
     // 上传头像
     $('#imgUpload').on({
-        click: function() {
+        click: function () {
             if ($(this).hasClass('cm-btn-active')) {
                 $cmShade.fadeOut(100);
                 $userImgModal.slideUp(200);
@@ -1160,7 +1181,7 @@ function initHeadImg() {
 
     // 打开修改用户名弹窗
     $('.user-name').on({
-        click: function() {
+        click: function () {
             $cmShade.fadeIn('100');
             $userNameModal.slideDown(200);
         }
@@ -1168,7 +1189,7 @@ function initHeadImg() {
 
     // 关闭修改用户名弹窗
     $('.close-username-modify').on({
-        click: function() {
+        click: function () {
             $('.btn-special').removeClass('cm-btn-active');
             $cmShade.fadeOut(100);
             $userNameModal.slideUp(200);
@@ -1177,11 +1198,11 @@ function initHeadImg() {
 
     // 修改用户名输入框
     $('.username-modify').on({
-        click: function(e) {
+        click: function (e) {
             $(this).addClass('username-modify-active');
             e.stopPropagation();
         },
-        input: function() {
+        input: function () {
             var $btn = $('.btn-special');
             $btn.addClass('cm-btn-active');
 
@@ -1192,7 +1213,7 @@ function initHeadImg() {
     });
     // 确认修改用户名
     $('.btn-special').on({
-        click: function() {
+        click: function () {
             if ($(this).hasClass('cm-btn-active')) {
                 var userName = replaceIllegalStr($('.username-modify').val());
 
@@ -1200,7 +1221,7 @@ function initHeadImg() {
                 params['action'] = 'update_buyer_info';
                 params['buyer_name'] = userName;
 
-                epm.ajax(params, function() {
+                epm.ajax(params, function () {
 
                     $cmShade.fadeOut(100);
                     $userNameModal.slideUp(200);

@@ -18,7 +18,15 @@ public interface GoodsDao {
 
     List<Goods> selectByExample(GoodsQuery example);
 
+    List<Goods> selectAllGoods();
+
+    List<Goods> selectBySort(Integer sort);
+
+    List<Goods> selectByStatus(Integer status);
+
     Goods selectByPrimaryKey(Integer goodsId);
+
+    Goods selectByName(String name);
 
     int updateByExampleSelective(@Param("record") Goods record, @Param("example") GoodsQuery example);
 

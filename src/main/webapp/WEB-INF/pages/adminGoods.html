@@ -182,11 +182,10 @@
                 <div><input class="cm-btn-sm" id="price"/></div>
                 <div><input class="cm-btn-sm" id="stock"/></div>
                 <div><input class="cm-btn-sm" id="url"/></div>
-                <div><input class="cm-btn-sm" id="sort"/></div>
+                <div><select class="cm-btn-sm" id="sort"></select></div>
                 <div>
-                    <button class="cm-btn-sm pay-btn-active" id="addUser">添加商品</button>
+                    <button class="cm-btn-sm pay-btn-active" id="addGoods">添加商品</button>
                 </div>
-                <!--TODO-->
             </div>
         </div>
         <!--可用金额明细-->
@@ -201,18 +200,7 @@
                     <div>操作</div>
                 </div>
                 <!--金额列表-->
-                <ul class="detail-list">
-                    <li class="detail-item">
-                        <div>大幅答复</div>
-                        <div>地方</div>
-                        <div>大幅答复</div>
-                        <div>地方</div>
-                        <div class="price-num">5555</div>
-                        <div>
-                            <button class="cm-btn-sm pay-btn-active" id="deleteUser">删除商品</button>
-                        </div>
-                    </li>
-                </ul>
+                <ul id="goodList" class="detail-list"></ul>
                 <div class="paging">
                     <span onclick="flip('pre')">上一页</span>
                     <span onclick="flip('next')">下一页</span>
@@ -367,5 +355,6 @@
 
 <script src="js/vendor/jquery-3.1.1.js"></script>
 <script src="js/default.js"></script>
+<script src="js/adminGoods.js"></script>
 </body>
 </html>

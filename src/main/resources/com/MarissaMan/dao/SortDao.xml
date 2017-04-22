@@ -1,172 +1,180 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.MarissaMan.dao.SortDao" >
-  <resultMap id="BaseResultMap" type="com.MarissaMan.entity.Sort" >
-    <id column="sort_id" property="sortId" jdbcType="INTEGER" />
-    <result column="sort_name" property="sortName" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+<mapper namespace="com.MarissaMan.dao.SortDao">
+    <resultMap id="BaseResultMap" type="com.MarissaMan.entity.Sort">
+        <id column="sort_id" property="sortId" jdbcType="INTEGER"/>
+        <result column="sort_name" property="sortName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        <if test="fields == null">
+            sort_id, sort_name
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    <if test="fields == null" >
-      sort_id, sort_name
-    </if>
-    <if test="fields != null" >
-      ${fields}
-    </if>
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.MarissaMan.entity.SortQuery" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from sort
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-    <if test="startRow != null" >
-      limit #{startRow} , #{pageSize}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        <if test="fields != null">
+            ${fields}
+        </if>
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.MarissaMan.entity.SortQuery">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from sort
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="startRow != null">
+            limit #{startRow} , #{pageSize}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select 
     sort_id,sort_name
     from sort
     where sort_id = #{sortId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from sort
-    where sort_id = #{sortId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.MarissaMan.entity.SortQuery" >
-    delete from sort
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.MarissaMan.entity.Sort" >
-    insert into sort (sort_id, sort_name)
-    values (#{sortId,jdbcType=INTEGER}, #{sortName,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.MarissaMan.entity.Sort" >
-    insert into sort
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sortId != null" >
-        sort_id,
-      </if>
-      <if test="sortName != null" >
-        sort_name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sortId != null" >
-        #{sortId,jdbcType=INTEGER},
-      </if>
-      <if test="sortName != null" >
-        #{sortName,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.MarissaMan.entity.SortQuery" resultType="java.lang.Integer" >
-    select count(*) from sort
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
+    <!--by myself-->
+    <select id="selectAllSort" resultMap="BaseResultMap">
+    select
+    sort_id,sort_name
+    from sort
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update sort
-    <set >
-      <if test="record.sortId != null" >
-        sort_id = #{record.sortId,jdbcType=INTEGER},
-      </if>
-      <if test="record.sortName != null" >
-        sort_name = #{record.sortName,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update sort
-    set sort_id = #{record.sortId,jdbcType=INTEGER},
-      sort_name = #{record.sortName,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.MarissaMan.entity.Sort" >
-    update sort
-    <set >
-      <if test="sortName != null" >
-        sort_name = #{sortName,jdbcType=VARCHAR},
-      </if>
-    </set>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sort
     where sort_id = #{sortId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.MarissaMan.entity.Sort" >
-    update sort
-    set sort_name = #{sortName,jdbcType=VARCHAR}
-    where sort_id = #{sortId,jdbcType=INTEGER}
-  </update>
+  </delete>
+    <delete id="deleteByExample" parameterType="com.MarissaMan.entity.SortQuery">
+        delete from sort
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.MarissaMan.entity.Sort">
+        INSERT INTO sort (sort_id, sort_name)
+        VALUES (#{sortId,jdbcType=INTEGER}, #{sortName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.MarissaMan.entity.Sort">
+        insert into sort
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sortId != null">
+                sort_id,
+            </if>
+            <if test="sortName != null">
+                sort_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sortId != null">
+                #{sortId,jdbcType=INTEGER},
+            </if>
+            <if test="sortName != null">
+                #{sortName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.MarissaMan.entity.SortQuery" resultType="java.lang.Integer">
+        select count(*) from sort
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update sort
+        <set>
+            <if test="record.sortId != null">
+                sort_id = #{record.sortId,jdbcType=INTEGER},
+            </if>
+            <if test="record.sortName != null">
+                sort_name = #{record.sortName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update sort
+        set sort_id = #{record.sortId,jdbcType=INTEGER},
+        sort_name = #{record.sortName,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.MarissaMan.entity.Sort">
+        update sort
+        <set>
+            <if test="sortName != null">
+                sort_name = #{sortName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sort_id = #{sortId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.MarissaMan.entity.Sort">
+        UPDATE sort
+        SET sort_name = #{sortName,jdbcType=VARCHAR}
+        WHERE sort_id = #{sortId,jdbcType=INTEGER}
+    </update>
 </mapper>

@@ -2,8 +2,8 @@ package com.MarissaMan.controller;
 
 import com.MarissaMan.dto.Msg;
 import com.MarissaMan.dto.Result;
-import com.MarissaMan.entity.User;
-import com.MarissaMan.service.UserService;
+import com.MarissaMan.entity.Goods;
+import com.MarissaMan.service.GoodsService;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,34 +20,34 @@ import java.util.List;
 public class GoodsController {
 
     @Autowired
-    UserService userService;
+    GoodsService goodsService;
 
-    @RequestMapping(value = "/addUser", produces = {"application/text;charset=UTF-8"})
+    @RequestMapping(value = "/addGoods", produces = {"application/text;charset=UTF-8"})
     @ResponseBody
-    public String addUser(String params) {
-        System.out.println("-----添加用户--------");
+    public String addGoods(String params) {
+        System.out.println("-----添加商品--------");
         System.out.println(params + " before");
         Msg msg;
         Boolean isSuccess;
         try {
             //需要调用函数把字符串转化为对应的Bean
-            User user = JSON.parseObject(params, User.class);
-            int flag = userService.addUser(user);
-            System.out.println(user.toString());
+            Goods goods = JSON.parseObject(params, Goods.class);
+            int flag = goodsService.addGoods(goods);
+            System.out.println(goods.toString());
             if (flag == 1) {
-                msg = new Msg("添加用户成功");
+                msg = new Msg("添加商品成功");
                 isSuccess = true;
             } else if (flag == 0) {
                 isSuccess = false;
-                msg = new Msg("添加用户失败");
+                msg = new Msg("添加商品失败");
             } else {
                 isSuccess = false;
-                msg = new Msg("添加用户发生异常");
+                msg = new Msg("添加商品发生异常");
             }
 
             System.out.println(params + " into");
         } catch (Exception e) {
-            msg = new Msg("添加用户抛出异常");
+            msg = new Msg("添加商品抛出异常");
             isSuccess = false;
             System.out.println(e.getMessage());
         }
@@ -56,62 +56,62 @@ public class GoodsController {
         return JSON.toJSONString(result);
     }
 
-    @RequestMapping(value = "/getUserList", produces = {"application/text;charset=UTF-8"})
+    @RequestMapping(value = "/getGoodsList", produces = {"application/text;charset=UTF-8"})
     @ResponseBody
-    public String getUserList() {
-        System.out.println("-----获取用户列表--------");
+    public String getGoodsList() {
+        System.out.println("-----获取商品列表--------");
         System.out.println(" before");
         Msg msg;
         Boolean isSuccess;
-        List<User> users;
+        List<Goods> goodsList;
         try {
-            users = userService.getAllUser();
-            if (!users.isEmpty()) {
-                msg = new Msg("用户列表不为空");
+            goodsList = goodsService.getAllGoods();
+            if (!goodsList.isEmpty()) {
+                msg = new Msg("商品列表不为空");
                 isSuccess = true;
             } else {
                 isSuccess = false;
-                msg = new Msg("用户列表为空");
+                msg = new Msg("商品列表为空");
             }
 
             System.out.println(" into");
         } catch (Exception e) {
-            msg = new Msg("用户列表获取失败");
+            msg = new Msg("商品列表获取失败");
             isSuccess = false;
             System.out.println(e.getMessage());
-            users = null;
+            goodsList = null;
         }
         System.out.println(" after");
-        Result<List> result = new Result(isSuccess, users);
+        Result<List> result = new Result(isSuccess, goodsList);
         return JSON.toJSONString(result);
     }
 
-    @RequestMapping(value = "/deleteUser", produces = {"application/text;charset=UTF-8"})
+    @RequestMapping(value = "/deleteGoods", produces = {"application/text;charset=UTF-8"})
     @ResponseBody
-    public String deleteUser(String params) {
-        System.out.println("-----删除用户--------");
+    public String deleteGoods(String params) {
+        System.out.println("-----删除商品--------");
         System.out.println(params + " before");
         Msg msg;
         Boolean isSuccess;
         try {
-            User user = JSON.parseObject(params, User.class);
-            System.out.println(user.getUserId());
-            int flag = userService.deleteUserById(user.getUserId());
-            System.out.println(user.toString());
+            Goods goods = JSON.parseObject(params, Goods.class);
+            System.out.println(goods.getGoodsId());
+            int flag = goodsService.deleteGoodsById(goods.getGoodsId());
+            System.out.println(goods.toString());
             if (flag == 1) {
-                msg = new Msg("删除用户成功");
+                msg = new Msg("删除商品成功");
                 isSuccess = true;
             } else if (flag == 0) {
                 isSuccess = false;
-                msg = new Msg("删除用户失败");
+                msg = new Msg("删除商品失败");
             } else {
                 isSuccess = false;
-                msg = new Msg("删除用户发生异常");
+                msg = new Msg("删除商品发生异常");
             }
 
             System.out.println(params + " into");
         } catch (Exception e) {
-            msg = new Msg("删除用户抛出异常");
+            msg = new Msg("删除商品抛出异常");
             isSuccess = false;
             System.out.println(e.getMessage());
         }
@@ -120,31 +120,31 @@ public class GoodsController {
         return JSON.toJSONString(result);
     }
 
-    @RequestMapping(value = "/updateUser", produces = {"application/text;charset=UTF-8"})
+    @RequestMapping(value = "/updateGoods", produces = {"application/text;charset=UTF-8"})
     @ResponseBody
-    public String updateUser(String params) {
-        System.out.println("-----更新用户--------");
+    public String updateGoods(String params) {
+        System.out.println("-----更新商品--------");
         System.out.println(params + " before");
         Msg msg;
         Boolean isSuccess;
         try {
-            User user = JSON.parseObject(params, User.class);
-            int flag = userService.updateUser(user);
-            System.out.println(user.toString());
+            Goods goods = JSON.parseObject(params, Goods.class);
+            int flag = goodsService.updateGoods(goods);
+            System.out.println(goods.toString());
             if (flag == 1) {
-                msg = new Msg("更新用户成功");
+                msg = new Msg("更新商品成功");
                 isSuccess = true;
             } else if (flag == 0) {
                 isSuccess = false;
-                msg = new Msg("更新用户失败");
+                msg = new Msg("更新商品失败");
             } else {
                 isSuccess = false;
-                msg = new Msg("更新用户发生异常");
+                msg = new Msg("更新商品发生异常");
             }
 
             System.out.println(params + " into");
         } catch (Exception e) {
-            msg = new Msg("更新用户抛出异常");
+            msg = new Msg("更新商品抛出异常");
             isSuccess = false;
             System.out.println(e.getMessage());
         }

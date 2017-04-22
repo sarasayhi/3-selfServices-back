@@ -18,6 +18,8 @@ public interface SortDao {
 
     List<Sort> selectByExample(SortQuery example);
 
+    List<Sort> selectAllSort();
+
     Sort selectByPrimaryKey(Integer sortId);
 
     int updateByExampleSelective(@Param("record") Sort record, @Param("example") SortQuery example);

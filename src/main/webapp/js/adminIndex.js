@@ -8,9 +8,7 @@ function pageInit() {
 
 function getUserList() {
     $.post("user/getUserList", function (result) {
-        console.log(typeof result + ' ' + result);
         var resultObject = JSON.parse(result);
-        console.log(" dfd " + typeof resultObject + " " + resultObject['success']);
         if (resultObject['success'] == false) {
             alert("暂无用户");
             return;
@@ -23,10 +21,9 @@ function getUserList() {
                 + '<div><input class="cm-btn-sm password" type="text"  value="' + user['password'] + '" orgin="' + user['password'] + '"></div>'
                 + '<div><input class="cm-btn-sm money" type="text" value="' + user['money'] + '" orgin="' + user['money'] + '"></div>'
 //                    + '<div>' + user['password'] + '</div>'
-//                    + '<div class="price-num">' + user['money'] + '</div>'
                 + '<div>'
-                + '<button class="cm-btn-sm pay-btn-active deleteUser" userId ="' + user['userId'] + '">删除</button>'
-                + '<button class="cm-btn-sm pay-btn-active updateUser" userId ="' + user['userId'] + '">修改</button>'
+                + '<button style="margin:5px;" class="cm-btn-sm pay-btn-active deleteUser" userId ="' + user['userId'] + '">删除</button>'
+                + '<button style="margin:5px;" class="cm-btn-sm pay-btn-active updateUser" userId ="' + user['userId'] + '">修改</button>'
                 + '</div></li>';
         });
         $('#userList').html(html).find('input').attr('disabled', true).css({
@@ -40,16 +37,12 @@ function getUserList() {
             click: function () {
                 var params = {};
                 params['userid'] = $(this).attr('userid');
-                console.log(params['userid']);
                 if (epm.isEmpty(params['userid'])) {
                     alert("请选择要删除的用户");
                     return;
                 }
-                console.log(JSON.stringify(params));
                 $.post("user/deleteUser", {params: JSON.stringify(params)}, function (result) {
-                    console.log(typeof result + ' ' + result);
                     var resultObject = JSON.parse(result);
-                    console.log(" dfd " + typeof resultObject + " " + resultObject['success']);
                     if (resultObject['success'] == true) {
                         alert("用户删除成功");
                     } else {
@@ -64,7 +57,6 @@ function getUserList() {
         $('.updateUser').on({
             click: function () {
                 var $parent = $(this).parents('.detail-item');
-                console.log($parent.find('input').attr('disabled'));
                 if ($parent.find('input').attr('disabled') == 'disabled') {
                     $parent.find('input').removeAttr('disabled').css({
                         'background-color': '#bebebe',
@@ -94,18 +86,11 @@ function getUserList() {
                 params['password'] = $parent.find('.password').val();
                 params['money'] = $parent.find('.money').val();
 
-                console.log(JSON.stringify(params));
 
                 $.post("user/updateUser", {params: JSON.stringify(params)}, function (result) {
-                    console.log(typeof result + ' ' + result);
                     var resultObject = JSON.parse(result);
-                    console.log(" dfd " + typeof resultObject + " " + resultObject['success']);
                     if (resultObject['success'] == true) {
                         alert("用户信息修改成功");
-                        $parent.find('input').attr('disabled', true).css({
-                            'background-color': '#fff',
-                            'color': '#000'
-                        });
                         window.location.reload();
                     } else {
                         alert("用户信息修改失败，请重新填写信息");
@@ -129,11 +114,8 @@ function addUser() {
                 return;
             }
 
-            console.log(JSON.stringify(params));
             $.post("user/addUser", {params: JSON.stringify(params)}, function (result) {
-                console.log(typeof result + ' ' + result);
                 var resultObject = JSON.parse(result);
-                console.log(" dfd " + typeof resultObject + " " + resultObject['success']);
                 resultObject['success'] == true ? alert("用户添加成功") : alert("用户添加失败");
                 window.location.reload();
             });

@@ -4,13 +4,13 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="description" content="">
-        <title>管理员-类别管理</title>
+        <title></title>L
 
         <link rel="icon" href="img/apple-touch-icon.png">
 
         <link rel="stylesheet" href="font/iconfont.css">
         <link rel="stylesheet" href="css/default.css">
-        <link rel="stylesheet" href="css/adminSort.css">
+        <link rel="stylesheet" href="css/goodsList.css">
     </head>
     <body>
 
@@ -133,69 +133,41 @@
 
         <!--主体内容-->
         <div class="sp-container">
-            <div class="cm-path">
-                <a href="index.html">首页</a>
-                <span>></span>
-                <span>类别管理</span>
-            </div>
-            <div class="cm-sidebar">
-                <div class="user-img-outer">
-                    <img class="user-img" src="">
-                    <div class="user-shade">
-                        <span>修改</span>
+            <div class="cont">
+                <div class="subdivision">
+                    <div class="subdivision-left"></div>
+                    <div class="subdivision-right">
+                        <span data-sort-type="4">
+                            关注
+                            <i class="arrow-down1"></i>
+                        </span>
+                        <span data-sort-type="3">
+                            好评
+                            <i class="arrow-down1"></i>
+                        </span>
+                        <span data-sort-type="1">
+                            价格
+                            <i class="arrow-up"></i>
+                            <i class="arrow-down"></i>
+                        </span>
+                        <span data-sort-type="0">默认</span>
                     </div>
                 </div>
-                <p class="user-name"></p>
-                <ul class="cm-sidebar-menu">
-                    <li>
-                        <a href="adminIndex">用户管理</a>
-                    </li>
-                    <li>
-                        <a href="adminGoods">商品管理</a>
-                    </li>
-                    <li>
-                        <a href="adminShelves">上架管理</a>
-                    </li>
-                    <li>
-                        <a class="text-selected" href="adminSort">类别管理</a>
-                    </li>
-                    <li>
-                        <a href="adminOrderList">订单管理</a>
-                    </li>
-                </ul>
+
+                <ul class="cm-list"></ul>
+
+                <div class="load load-text">加载更多</div>
             </div>
-            <div class="cm-main">
-                <h3 class="cm-main-title">类别管理</h3>
-                <!--可用金额明细-->
-                <div class="detail">
-                    <div class="detail-content">
-                        <div class="detail-list-title">
-                            <div>类别id</div>
-                            <div>类型名称</div>
-                            <div>操作</div>
-                        </div>
-                        <!--金额列表-->
-                        <ul id="sortList" class="detail-list">
-                            <li class="detail-item">
-                                <div><input class="cm-btn-sm sortId"/></div>
-                                <div><input class="cm-btn-sm sortName"/></div>
-                                <div><button class="cm-btn-sm pay-btn-active" id="updateSort">修改名称</button></div>
-                            </li>
-                        </ul>
-                        <div class="paging">
-                            <span onclick="flip('pre')">上一页</span>
-                            <span onclick="flip('next')">下一页</span>
-                        </div>
-                    </div>
-                    <!--空白内容-->
-                    <div class="cm-empty score-empty">
-                        <img src="img/wallet-empty.png">
-                        <div class="cm-empty-text">
-                            <p>您的钱包还是空的，赶紧去充值吧！</p>
-                        </div>
-                    </div>
+
+            <!--空白页-->
+            <div class="cm-empty">
+                <img src="img/search-empty.png">
+                <div class="cm-empty-text">
+                    <p>未搜索到相关内容</p>
+                    <a href="index.html">返回重新试试 &gt;&gt;</a>
                 </div>
             </div>
+
         </div>
 
         <!--尾页-->
@@ -252,86 +224,24 @@
             </div>
         </footer>
 
-        <!--设置密码弹窗-->
-        <div class="cm-shade">
-            <!--设置用户名弹窗-->
-            <div class="user-name-modal">
-                <p class="user-title">
-                    设置用户名
-                    <i class="iconfont close close-username-modify">&#xe60b;</i>
-                </p>
-                <input class="username-modify" type="text" placeholder="请输入新的用户名" maxlength="10">
-                <button class="btn-special confirm-btn">确定</button>
+        <!--右边top和app下载-->
+        <div class="fixed-right">
+            <div class="to-top-app">
+                <img src="img/qr-code-app.png" alt="app二维码">
+                <p class="app">扫描下载app</p>
             </div>
-            <!-- 设置头像 -->
-            <div class="user-img-modal">
-                <p class="user-title">
-                    设置头像
-                    <i class="iconfont close close-userimg-modify">&#xe60b;</i>
-                </p>
-
-                <form name="imgForm" id="imgForm" method="post" enctype="multipart/form-data">
-                    <div class="user-img-upload"></div>
-                    <input type="hidden" id="action" name="action" value="upload_head_img"/>
-                    <input type="hidden" id="returnUrl" name="return_url" value=""/>
-                    <div class="cm-btn-sm upload">
-                        <input type="file" id="files" name="files" accept="image/jpeg" onchange="readAsDataURL()"/>
-                        <p>重新上传</p>
-                    </div>
-
-                    <input type="button" id="imgUpload" class="cm-btn-sm" value="确定"/>
-
-                </form>
+            <div class="to-top-app service">
+                <img src="img/service.svg" alt="客服">
+                <p>联系客服</p>
             </div>
-            <!--验证身份弹窗-->
-            <div class="set-password">
-                <p class="close-bar">
-                    <i class="iconfont i-close-btn">&#xe60b;</i>
-                </p>
-                <div class="set-password-tab">
-                    <span class="set-password-select">验证身份</span>
-                    <span id="setPasswordBg">设置密码</span>
-                </div>
-                <div class="set-identify-cont">
-                    <input class="password-phone" id="phone" type="text" autocomplete="off" placeholder="请输入手机号码" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
-                    <p class="input-error" id="errorPhone">
-                        <i class="iconfont i-error">&#xe628;</i>
-                        <span class="error-text" id="errorPhoneNum">请输入11位手机号</span>
-                    </p>
-                    <div class="identify">
-                        <input id="identifyCode" class="identify-code" type="text" maxlength="4" autocomplete="off" placeholder="请输入验证码" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
-                        <input id="identifySend" class="identify-send" type="button" value="发送验证码" disabled="disabled">
-                    </div>
-                    <p class="input-error" id="errorIdentify">
-                        <i class="iconfont i-error">&#xe628;</i>
-                        <span class="error-text" id="errorIdentifyText">请输入4位验证码</span>
-                    </p>
-                    <button class="next-btn" id="nextBtn" disabled="disabled">下一步</button>
-                </div>
-                <div class="set-password-cont">
-                    <input class="identify-code password-code" id="setPassword" type="password" placeholder="请输入6位密码" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
-                    <p class="input-error" id="setPasswordText">
-                        <i class="iconfont i-error">&#xe628;</i>
-                        <span class="error-text" id="setPasswordSix">请输入6位密码</span>
-                    </p>
-                    <input class="identify-code password-code" id="reSetPassword" type="password" placeholder="请重新输入密码" onkeyup='this.value=this.value.replace(/\D/gi,"")'>
-                    <p class="input-error" id="reSetPasswordText">
-                        <i class="iconfont i-error">&#xe628;</i>
-                        <span class="error-text" id="reSetPasswordTextSix">密码不一致,请重新输入</span>
-
-                    </p>
-                    <button class="next-btn" id="ensure">确定</button>
-                </div>
-            </div>
-            <!--设置密码成功弹窗-->
-            <div class="password-success">
-                <p>设置密码成功</p>
-                <button class="cm-btn-md cm-btn-active" id="goBackThis">返回</button>
-            </div>
+            <a id="goTop" class="go-top" href="javascript:void(0)" title="回到顶部">
+                <i class="iconfont i-top">&#xe60e;</i>
+                <p>TOP</p>
+            </a>
         </div>
 
         <script src="js/vendor/jquery-3.1.1.js"></script>
         <script src="js/default.js"></script>
-        <script src="js/adminSort.js"></script>
+        <script src="js/goodsList.js"></script>
     </body>
 </html>
