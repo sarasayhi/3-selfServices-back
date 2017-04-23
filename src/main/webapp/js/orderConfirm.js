@@ -12,6 +12,12 @@
 function pageInit() {
     // eventTrigger();
     initOrderList();
+
+    $('.ct-pay-btn').on({
+        click: function () {
+            window.location.href='orderFinish';
+        }
+    });
 }
 
 /**
@@ -21,7 +27,7 @@ function initOrderList() {
 
     var html = '';
 
-   html
+    html
         = '<div class="od-ground"><div class="od-stall">value[shop_name]</div>'
         + '<ul class="od-list od-cn-list">'
         + '<li class="od-goods-img"><img src="epm.v.imageURLPrefix + valueimage_ur"></li>'

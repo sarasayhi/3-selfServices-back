@@ -1,0 +1,47 @@
+/* Copyright (C) 2016
+ * This file is part of the Epiphyllum B7 System.
+ *
+ * filename : pay_finish.css
+ * function :
+ * action   :
+ * version  : 7.1
+ * author   : MarissaMan
+ * date     : 2017-01-11
+ * modify   :
+ */
+.pf-cont {
+    margin: 0 0 100px;
+}
+
+.finish {
+    margin: 20px 0;
+    height: 400px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.finish-state {
+    padding: 100px 0 80px;
+    height: 220px;
+}
+
+.finish-state p {
+    display: inline;
+    margin: 0 20px 0 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.finish-state i {
+    font-size: 25px;
+}
+
+.bill-check {
+    margin: 0 25px;
+    background-color: #78885b;
+}
+
+.shopping {
+    margin: 0 25px;
+    background-color: #78885b;
+}

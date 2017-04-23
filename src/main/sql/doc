@@ -69,5 +69,30 @@ ajax请求登陆或注册
 提供userid totalprice totalamount
 批量移除cartItem
 
+新增页面
+订单完成 orderFinish
+我的信息 userMessage
+我的钱包 userWallet
+我的订单 userOrder
+订单列表 userOrderDetail
 
+购物车页面
+点击购物车页面
+根据userId获取CartId
+初始化购物车列表
 
+结算页面
+选中购物车商品，进行结算
+将购买的商品从购物车表移除
+将商品列表加入到订单详情表
+跳转到确认订单页面
+
+确认订单页
+根据订单流水号获取订单列表
+生成信息
+展示总价，数量，应付金额
+点击支付，弹出密码弹窗
+密码输入完毕
+验证密码
+更新商品库存，更新用户钱包，更新订单状态
+跳转页面 支付完成

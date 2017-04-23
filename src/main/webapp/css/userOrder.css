@@ -1,0 +1,230 @@
+/* Copyright (C) 2016
+* This file is part of the Epiphyllum B7 System.
+*
+* filename : order_manage
+* function :
+* action   :
+* version  : 7.1
+* author   : lindan
+* date     : 2017-01-17
+* modify   : 
+*/
+
+/*面包屑*/
+.cm-path {
+    line-height: 40px;
+}
+
+.cm-path a:hover,
+.cm-path span:last-child {
+    color: #78885b;
+}
+
+/*订单状态标题*/
+.om-status-bar {
+    height: 52px;
+    line-height: 50px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.om-status-list {
+    float: left;
+}
+
+.om-status-list li {
+    display: inline-block;
+}
+
+.om-status-item {
+    font-size: 16px;
+}
+
+.om-status-item:hover {
+    border-bottom: 2px solid #78885b;
+    color: #78885b;
+}
+.om-status-selected {
+    border-bottom: 2px solid #78885b;
+    color: #78885b;
+}
+
+.om-split {
+    margin: 0 20px;
+    color: #f4f4f4;
+    font-size: 12px;
+}
+
+.order-search-bar {
+    float: right;
+    position: relative;
+}
+
+.order-search {
+    width: 270px;
+    height: 14px;
+    padding: 8px 10px;
+    font-size: 12px;
+    outline: 0;
+}
+
+.order-search-btn {
+    font-size: 20px;
+    color: #bebebe;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -10px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.order-search-active{
+    color: #78885b;
+}
+
+
+/*订单号 标题*/
+.om-num-title {
+    height: 40px;
+    line-height: 40px;
+    background-color: #f4f4f4;
+    padding: 0 40px 0 20px;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.om-num-title a:hover {
+    color: #78885b;
+}
+
+.om-num-time {
+    margin-right: 20px;
+}
+
+.om-num-detail {
+    float: right;
+    margin-right: 20px;
+}
+
+/*订单号对应的订单*/
+.om-num-row {
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    border: 1px solid #f4f4f4;
+    height: 120px;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px 0 20px 20px;
+}
+
+.om-num-row li:nth-child(1) {
+    -webkit-flex: 1 0 400px;
+    flex: 1 0 400px;
+    text-align: left;
+}
+
+.om-num-row li:nth-child(n+2) {
+    -webkit-flex: 1 0 160px;
+    flex: 1 0 160px;
+}
+
+.om-img-box img {
+    width: 80px;
+    height: 80px;
+    margin-right: 4px;
+}
+
+.om-img-box {
+    display: inline-block;
+}
+
+.om-piece {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.om-num-prices,
+.om-num-status {
+    margin: 30px auto;
+}
+
+.om-status-payment {
+    width: 90px;
+    margin: 10px auto;
+}
+
+.om-countdown {
+    font-size: 12px;
+    text-align: left;
+    color: #ff5000;
+}
+
+.om-btn-tow {
+    height: 80px;
+    padding-top: 5px;
+}
+
+.om-btn-tow a {
+    display: block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 auto 10px auto;
+    border: 1px solid #78885b;
+    color: #78885b;
+}
+
+.om-btn-tow a:hover {
+    background-color: #78885b;
+    color: #fff;
+}
+
+/*如果只有一个按钮时 则用om-btn-one*/
+.om-btn-one a {
+    margin-top: 20px;
+}
+
+.om-btn-tow .om-btn-pay {
+    background-color: #82a542;
+    border: none;
+    color: #fff;
+}
+
+.om-btn-tow .om-btn-pay:hover {
+    background-color: #75953c;
+}
+
+/*分页*/
+.page-list {
+    margin: 0 300px 20px;
+}
+
+.om-page-list {
+    margin: 40px 300px 60px;
+}
+
+.page-list li:first-child,
+.page-list li:last-child {
+    width: 60px;
+    color: #929292;
+}
+
+.page-list li {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.page-active {
+    background-color: #82a542;
+    color: #fff;
+}
+
+
+
+

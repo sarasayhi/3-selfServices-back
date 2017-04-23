@@ -1,0 +1,323 @@
+/* Copyright (C) 2016
+* This file is part of the Epiphyllum B7 System.
+*
+* filename : test
+* function :
+* action   :
+* version  : 7.1
+* author   : lindan
+* date     : 2017-01-10
+* modify   :
+*/
+
+/*面包屑*/
+.cm-path {
+    line-height: 40px;
+}
+
+.cm-path a:hover,
+.cm-path span:last-child {
+    color: #78885b;
+}
+
+/*下单时间和单号*/
+.od-rest-detail {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.order-time {
+    margin-right: 30px;
+}
+
+/*订单状态*/
+.od-status-bar {
+    height: 100px;
+    background-color: #f4f4f4;
+    margin: 20px 0 40px 0;
+    padding: 30px 0;
+}
+
+.od-status {
+    height: 40px;
+    padding: 0 40px;
+}
+
+.od-status-l {
+    float: left;
+}
+
+.od-received-txt {
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.od-obligations {
+    display: none;
+}
+
+.od-obligations-txt {
+    font-size: 20px;
+    line-height: 22px;
+    color: #ff5000;
+}
+
+.od-status-r {
+    float: right;
+    margin: 5px 0;
+}
+
+.od-status-r a {
+    display: inline-block;
+    width: 90px;
+    height: 30px;
+    background-color: #78885b;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    margin-left: 20px;
+}
+
+.od-status-r a:hover {
+    background-color: #6d7b52;
+}
+
+
+.od-appraise-btn {
+    margin-right: 20px;
+}
+
+/*物流信息*/
+.od-logistics {
+    height: 282px;
+    margin: 40px 0;
+}
+
+.od-receive-info,
+.od-delivery-info {
+    height: 128px;
+}
+
+.od-delivery-info {
+    margin-top: 30px;
+}
+
+.od-receipt,
+.od-picked-up {
+    display: none;
+}
+
+.od-receive-title {
+    height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+}
+
+.cm-label-item {
+    height: 20px;
+    margin-bottom: 8px;
+}
+
+.cm-label {
+    display: inline-block;
+    width: 68px;
+    height: 20px;
+    text-align: justify;
+    text-justify: inter-ideograph;
+    overflow: hidden;
+}
+
+.cm-label:after {
+    display: inline-block;
+    content: '';
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+}
+
+.cm-label-msg {
+    display: inline-block;
+    width: 800px;
+    vertical-align: top;
+}
+
+.cm-label-msg:before {
+    display: inline-block;
+    content: ':';
+    margin-right: 1em;
+}
+
+/*订单列表*/
+.order-list {
+    border: 1px solid #f4f4f4;
+    margin-bottom: 80px;
+}
+
+/*订单列表标题*/
+.od-list {
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.od-list li:nth-child(1) {
+    -webkit-flex: 1 1 160px;
+    flex: 1 1 160px;
+    text-align: left;
+}
+
+.od-list li:nth-child(2) {
+    -webkit-flex: 1 1 128px;
+    flex: 1 1 128px;
+    text-align: left;
+}
+
+.od-list li:nth-child(n+3) {
+    -webkit-flex: 1 0 223px;
+    flex: 1 0 223px;
+}
+
+.od-list .od-goods-info {
+    padding-left: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.od-list .od-goods-info a:hover,
+.od-stall a:hover {
+    color: #78885b;
+}
+
+/*订单；列表主体内容*/
+.od-content {
+    background-color: #fff;
+}
+
+.od-ground {
+    margin-bottom: 10px;
+}
+
+.od-stall {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #f4f4f4;
+    text-align: left;
+    padding-left: 40px;
+}
+
+.od-cn-list {
+    height: 120px;
+    line-height: 22px;
+    font-size: 16px;
+}
+
+.od-cn-list li {
+    padding: 49px 0;
+}
+
+.od-cn-list .od-goods-img {
+    padding: 0;
+}
+
+.od-goods-img img {
+    width: 80px;
+    height: 80px;
+    margin: 20px 40px;
+    -webkit-transition: transform 1s;
+    -moz-transition: transform 1s;
+    -ms-transition: transform 1s;
+    -o-transition: transform 1s;
+    transition: transform 1s;
+}
+
+.od-goods-img img:hover {
+    -webkit-transform: scale(1.04);
+    -moz-transform: scale(1.04);
+    -ms-transform: scale(1.04);
+    -o-transform: scale(1.04);
+    transform: scale(1.04);
+}
+
+/*订单详情的订单列表*/
+.od-details-head {
+    background-color: #f4f4f4;
+}
+
+.od-details-list li:nth-child(n+3) {
+    -webkit-flex: 1 0 203px;
+    flex: 1 0 203px;
+}
+
+.od-goods-bold {
+    font-weight: bold;
+}
+
+/*支付清单*/
+.od-pay-info {
+    height: 238px;
+    background-color: #fcfcfc;
+    padding: 40px 20px 10px 30px;
+    line-height: 22px;
+}
+
+.od-pay-list {
+    float: right;
+    text-align: right;
+}
+
+.od-line1,
+.od-line2 {
+    margin-bottom: 20px;
+}
+
+.od-line4 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.od-amount-piece {
+    margin-right: 15px;
+}
+
+.od-amount-piece em {
+    font-style: normal;
+}
+
+.od-pay-num {
+    display: inline-block;
+    width: 100px;
+    height: 22px;
+}
+
+.od-should-pay {
+    color: #ff5000;
+    font-size: 22px;
+}
+
+/*订单管理页面新增*/
+.od-detail-pay {
+    height: 180px;
+    background-color: #fff;
+    padding: 10px 20px 0 0;
+    border-top: 1px solid #f4f4f4;
+}
+
+.od-detail-line1,
+.od-detail-line2 {
+    margin-bottom: 10px;
+}
+
+.od-detail-line4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+
+
+

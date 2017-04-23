@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <title></title>
+
+    <link rel="icon" href="img/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/userOrderDetail.css">
+</head>
+<body>
+
+<!--头部-->
+<header>
+    <!--顶部栏-->
+    <div class="hd-top">
+        <div class="sp-container">
+            <div class="hd-top-left">
+
+                <dl class="hd-top-title-bar">
+                    <dt class="hd-top-title">
+                        <i class="iconfont i-addr">&#xe627;</i>
+                        <span id="curMarket" class="hd-top-txt"></span>
+                        <i class="i-down"></i>
+                    </dt>
+                    <dd id="marketList" class="hd-top-items">
+                    </dd>
+                </dl>
+
+                <dl class="hd-top-title-bar">
+                    <dt class="hd-top-title">
+                                <span class="hd-top-txt">送至:
+                                    <b class="address"></b>
+                                    <a href="location_index.html">[切换地址]</a>
+                                </span>
+                        <i class="i-down"></i>
+                    </dt>
+                    <dd class="hd-top-items" id="addressList">
+                    </dd>
+                </dl>
+            </div>
+            <div class="hd-top-right">
+                <div class="hd-login-in">
+                    <a href="login.html?to=login">登录</a>
+                    <a href="login.html?to=register">注册</a>
+                </div>
+                <!--登录之后显示-->
+                <div class="hd-user" style="display: none;">
+                    <dl class="hd-top-title-bar hd-user-bar">
+                        <dt class="hd-top-title">
+                            <span class="hd-top-txt"></span>
+                            <i class="i-down"></i>
+                        </dt>
+                        <dd class="hd-top-items" id="menu">
+                        </dd>
+                    </dl>
+                </div>
+                <span class="hd-split"></span>
+                <div class="hd-service service">
+                    <i class="iconfont i-service">&#xe66e;</i>
+                    客服
+                </div>
+                <div class="hd-download-app">
+                    <a href="download.html">
+                        <i class="iconfont i-app">&#xe608;</i>
+                        下载app
+                    </a>
+                    <div class="cm-app">
+                        <img class="cm-app-img" src="img/qr-code-app.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--logo和搜索 导航部分-->
+    <div class="hd-bar">
+        <div class="sp-container">
+            <div class="hd-logo-bar">
+                <div class="hd-logo">
+                    <a href="index.html">
+                        <img src="img/logo.png">
+                    </a>
+                </div>
+                <div class="hd-search">
+                    <div class="hd-search-form">
+                        <select id="searchSelect" class="hd-select-search">
+                            <option>商品</option>
+                            <option>档口</option>
+                        </select>
+                        <input class="hd-search-text" type="text" id="search" name="search" placeholder="本地胡萝卜"
+                               maxlength="20">
+                        <button class="hd-search-btn" id="btnSearch">
+                            <i class="iconfont i-search">&#xe604;</i>
+                        </button>
+                    </div>
+                    <div class="hot-words" id="hotWords">
+                    </div>
+                    <ul class="hd-search-list">
+                        <li class="hd-search-item">牛肉</li>
+                        <li class="hd-search-item">牛肉</li>
+                        <li class="hd-search-item">牛肉</li>
+                        <li class="hd-search-item">牛肉</li>
+                        <li class="hd-search-item">牛肉</li>
+                        <li class="hd-search-item">牛肉</li>
+                    </ul>
+                </div>
+                <!--购物车-->
+                <div class="hd-cart">
+                    <i class="iconfont i-cart">&#xe66d;</i>
+                    <span class="hd-shop-text">购物车</span>
+                    <span class="hd-shop-num">0</span>
+                </div>
+            </div>
+            <nav class="hd-nav">
+                <div class="hd-fixed-center">
+                    <ul class="hd-nav-items">
+                    </ul>
+                    <div class="hd-fixed-right">
+                        <div class="hd-cart hd-cart-fixed">
+                            <i class="iconfont i-cart-fixed">&#xe66d;</i>
+                            <span>购物车</span>
+                            <span class="hd-shop-num"></span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!--内容部分-->
+<div class="sp-container">
+
+    <div class="cm-path">
+        <a href="index.html">首页</a>
+        <span>&gt;</span>
+        <a href="order_list.html">订单管理</a>
+        <span>&gt;</span>
+        <span>订单号：
+                    <span id="orderSid"></span>
+                </span>
+    </div>
+
+    <!--侧边栏个人中心-->
+    <div class="cm-sidebar">
+        <div class="user-img-outer">
+            <img class="user-img" src="">
+            <div class="user-shade">
+                <span>修改</span>
+            </div>
+        </div>
+        <p class="user-name"></p>
+        <ul class="cm-sidebar-menu">
+            <li>
+                <a href="userMessage">我的信息</a>
+            </li>
+            <li>
+                <a href="userWallet">我的钱包</a>
+            </li>
+            <li>
+                <a class="text-selected" href="userOrder">我的订单</a>
+            </li>
+        </ul>
+    </div>
+
+    <!--右边主体部分-->
+    <div class="cm-main">
+        <h3 class="cm-main-title cm-bd-none">订单详情</h3>
+        <!--下单时间-->
+        <div class="od-rest-detail">
+            <span class="order-time"><!-- ## --></span>
+            <span class="order-id"><!-- ## --></span>
+        </div>
+        <!--订单状态-->
+        <div class="od-status-bar">
+            <div class="od-status">
+                <div class="od-status-l">
+                    <p class="od-received-txt order-state"><!-- ### --></p>
+                    <div class="od-obligations">
+                        <p class="od-obligations-txt">待付款</p>
+                        <p>20：30：10 后订单将被取消</p>
+                    </div>
+                </div>
+                <span class="od-status-r">
+                        </span>
+            </div>
+        </div>
+
+        <!--物流信息-->
+        <div class="od-logistics">
+            <div class="od-receive-info od-receipt">
+                <p class="od-receive-title">收货信息</p>
+                <p class="cm-label-item">
+                    <span class="cm-label">收货人</span>
+                    <span class="cm-label-msg cm-buyer-name"><!-- ## --></span>
+                </p>
+                <p class="cm-label-item">
+                    <span class="cm-label">电 话</span>
+                    <span class="cm-label-msg cm-buyer-mobile"><!-- ## --></span>
+                </p>
+                <p>
+                    <span class="cm-label">收货地址</span>
+                    <span class="cm-label-msg cm-buyer-address"><!-- ## --></span>
+                </p>
+
+            </div>
+            <div class="od-receive-info od-picked-up">
+                <p class="od-receive-title">自提信息</p>
+                <p>
+                    <span class="cm-label">自提地址</span>
+                    <span class="cm-label-msg cm-buyer-address" id="pickedUpAddr"><!-- ## --></span>
+                </p>
+                <p>
+                    <span class="cm-label">联系电话</span>
+                    <span class="cm-label-msg" id="pickedLinkPhone"></span>
+                </p>
+
+            </div>
+            <div class="od-delivery-info">
+                <p class="od-receive-title">配送信息</p>
+                <p class="cm-label-item">
+                    <span class="cm-label">配送方式</span>
+                    <span class="cm-label-msg cm-issue-tag"><!-- ## --></span>
+                </p>
+                <p class="cm-label-item">
+                    <span class="cm-label">配送时间</span>
+                    <span class="cm-label-msg cm-issue-time"><!-- ## --></span>
+                </p>
+                <p>
+                    <span class="cm-label">留言</span>
+                    <span class="cm-label-msg cm-buyer-remark"><!-- ## --></span>
+                </p>
+            </div>
+        </div>
+
+        <!--订单详情-->
+        <div class="order-list order-details">
+            <ul class="od-list od-details-list od-details-head">
+                <li class="od-goods-info od-goods-bold">商品信息</li>
+                <li></li>
+                <li>单价</li>
+                <li>数量</li>
+                <li>小计</li>
+            </ul>
+            <!-- 商品内容 -->
+            <div class="od-content">
+                <!-- ## -->
+            </div>
+
+            <!--总价信息-->
+            <div class="od-pay-info od-detail-pay">
+                <div class="od-pay-list">
+                    <p class="od-line1 od-detail-line1">
+                                <span class="od-amount-piece">共
+                                    <em class="goods-amount"><!-- ## --></em>
+                                    件
+                                </span>
+                        <label>总计：</label>
+                        <span class="od-pay-num goods-price"><!-- ## --></span>
+                    </p>
+                    <p class="od-line2 od-detail-line2">
+                        <label>配送费：</label>
+                        <span class="od-pay-num post-price"><!-- ## --></span>
+                    </p>
+                    <p class="od-line3 od-detail-line3">
+                        <label>优惠券：</label>
+                        <span class="od-pay-num distinct-price">￥10.00</span>
+                    </p>
+                    <p class="od-line4 od-detail-line4">
+                        <label>应付：</label>
+                        <span class="od-pay-num od-should-pay"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!--尾页-->
+<footer>
+    <div class="sp-container">
+        <ul class="ft-service">
+            <li class="s1">
+                <span>快速送达</span>
+            </li>
+            <li class="s2">
+                <span>全程冷链</span>
+            </li>
+            <li class="s3">
+                <span>菜市直购</span>
+            </li>
+            <li class="s4">
+                <span>贴心服务</span>
+            </li>
+        </ul>
+        <div class="ft-info-main">
+            <div class="ft-items">
+                <p class="ft-items-phone">(020)82517230</p>
+                <p class="ft-items-time">周一至周日 8:00-18:00</p>
+                <a href="javascript:void(0)" class="ft-items-feedback" id="feedBack">用户反馈</a>
+            </div>
+            <i class="ft-separator"></i>
+            <dl class="ft-items">
+                <dt>膳品宅送</dt>
+                <dd>
+                    <a href="about.html?to=1" title="关于我们">关于我们</a>
+                </dd>
+                <dd>
+                    <a href="about.html?to=2" title="加入我们">加入我们</a>
+                </dd>
+                <dd>
+                    <a href="about.html?to=3" title="联系我们">联系我们</a>
+                </dd>
+            </dl>
+            <i class="ft-separator"></i>
+            <div class="ft-items ft-code">
+                <img src="img/ft-qr-code-app.png">
+                <p>扫描下载APP</p>
+            </div>
+            <i class="ft-separator"></i>
+            <div class="ft-items ft-code">
+                <img src="img/official-accounts-code.png">
+                <p>关注微信号</p>
+            </div>
+        </div>
+        <div class="ft-copyright">
+            <p>©2017 广州膳品科技网络有限公司3pzs.com 版权所有</p>
+            <p>
+                <a target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备17028008号-1</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!--右边top和app下载-->
+<div class="fixed-right">
+    <div class="to-top-app">
+        <img src="img/qr-code-app.png" alt="app二维码">
+        <p class="app">扫描下载app</p>
+    </div>
+    <div class="to-top-app service">
+        <img src="img/service.svg" alt="客服">
+        <p>联系客服</p>
+    </div>
+    <a id="goTop" class="go-top" href="javascript:void(0)" title="回到顶部">
+        <i class="iconfont i-top">&#xe60e;</i>
+        <p>TOP</p>
+    </a>
+</div>
+
+<!--遮罩层-->
+<div class="cm-shade">
+    <!--设置用户名弹窗-->
+    <div class="user-name-modal">
+        <p class="user-title">
+            设置用户名
+            <i class="iconfont close close-username-modify">&#xe60b;</i>
+        </p>
+        <input class="username-modify" type="text" placeholder="请输入新的用户名" maxlength="10">
+        <button class="btn-special confirm-btn">确定</button>
+    </div>
+    <!-- 设置头像 -->
+    <div class="user-img-modal">
+        <p class="user-title">
+            设置头像
+            <i class="iconfont close close-userimg-modify">&#xe60b;</i>
+        </p>
+
+        <form name="imgForm" id="imgForm" action="//120.76.223.151/app/pc5.php" method="post"
+              enctype="multipart/form-data">
+            <div class="user-img-upload"></div>
+            <input type="hidden" id="action" name="action" value="upload_head_img"/>
+            <input type="hidden" id="returnUrl" name="return_url" value=""/>
+            <div class="cm-btn-sm upload">
+                <input type="file" id="files" name="files" accept="image/jpeg" onchange="readAsDataURL()"/>
+                <p>重新上传</p>
+            </div>
+
+            <input type="button" id="imgUpload" class="cm-btn-sm" value="确定"/>
+
+        </form>
+    </div>
+</div>
+
+<script src="js/vendor/jquery-3.1.1.js"></script>
+<!--<script src="js/vendor/sha1.js"></script>-->
+<script src="js/default.js"></script>
+<script src="js/userOrderDetail.js"></script>
+</body>
+</html>

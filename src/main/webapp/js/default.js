@@ -330,9 +330,9 @@ function cartHref() {
 // 初始化静态资源
 function spInitStaticResource() {
     var html = '';
-    html += '<p class="hd-top-item"><a href="order_list.html">我的订单</a></p>';
-    html += '<p class="hd-top-item"><a href="address_list.html">我的地址</a></p>';
-    html += '<p class="hd-top-item"><a href="wallet.html">我的钱包</a></p>';
+    html += '<p class="hd-top-item"><a href="userMessage">我的信息</a></p>';
+    html += '<p class="hd-top-item"><a href="userWallet">我的钱包</a></p>';
+    html += '<p class="hd-top-item"><a href="userOrder">我的订单</a></p>';
     html += '<p class="hd-top-item"><a href="#" onclick="epm.b.logOut()">退出登录</a></p>';
     $('#menu').html(html);
 }
