@@ -10,9 +10,9 @@ public class Order implements Serializable {
     private Integer orderId;
 
     /**
-     * 创建时间
+     * 订单总价
      */
-    private Date createdTime;
+    private Double totalPrice;
 
     /**
      * 商品数量
@@ -20,9 +20,19 @@ public class Order implements Serializable {
     private Integer totalAmount;
 
     /**
-     * 订单总价
+     * 创建时间
      */
-    private Double totalPrice;
+    private Date createdTime;
+
+    /**
+     * 订单状态
+     */
+    private Integer status;
+
+    /**
+     * 订单验证码
+     */
+    private Integer identifyCode;
 
     /**
      * 用户id
@@ -39,12 +49,12 @@ public class Order implements Serializable {
         this.orderId = orderId;
     }
 
-    public Date getCreatedTime() {
-        return createdTime;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Integer getTotalAmount() {
@@ -55,12 +65,28 @@ public class Order implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public Date getCreatedTime() {
+        return createdTime;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getIdentifyCode() {
+        return identifyCode;
+    }
+
+    public void setIdentifyCode(Integer identifyCode) {
+        this.identifyCode = identifyCode;
     }
 
     public Integer getUserId() {
@@ -78,9 +104,11 @@ public class Order implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", orderId=").append(orderId);
-        sb.append(", createdTime=").append(createdTime);
-        sb.append(", totalAmount=").append(totalAmount);
         sb.append(", totalPrice=").append(totalPrice);
+        sb.append(", totalAmount=").append(totalAmount);
+        sb.append(", createdTime=").append(createdTime);
+        sb.append(", status=").append(status);
+        sb.append(", identifyCode=").append(identifyCode);
         sb.append(", userId=").append(userId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

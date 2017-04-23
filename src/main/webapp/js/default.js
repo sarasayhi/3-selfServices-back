@@ -14,11 +14,7 @@
     // 私有变量
     var TITLE = '膳品宅送',
         PRECISION_QTY = 0,
-        PRECISION_MONEY = 2,
-        API_URL = {
-            'addUser': 'user/addUser'
-        };
-
+        PRECISION_MONEY = 2;
     // 私有方法
     function setCookie(key, value) {
         var expires = new Date();
@@ -50,6 +46,11 @@
         }
     };
 
+    epm.k = {
+        SORT_LIST: 'SORT_LIST',
+        USER_NAME:'USER_NAME'
+    };
+
     // 配置项
     epm.c = {
         set goodsSortList(value) {
@@ -73,11 +74,12 @@
     // 业务相关
     epm.b = {
         isLogin: function () {
-            var user_token = epm.getLocalItem('username');
+            var user_token = epm.getLocalItem(epm.k.USER_NAME);
             return !epm.isEmpty(user_token);
         },
         logOut: function () {
-
+            epm.removeLocalItem(epm.k.USER_NAME);
+            window.location.reload();
         }
     };
 
@@ -85,7 +87,7 @@
         if (window.sessionStorage) {
             sessionStorage.setItem(key, value);
         } else {
-            //后备方案
+            // 后备方案
             setCookie(key, value);
         }
     };
@@ -94,7 +96,7 @@
         if (window.sessionStorage) {
             return sessionStorage.getItem(key);
         } else {
-            //后备方案
+            // 后备方案
             return getCookie(key);
         }
     };
@@ -103,7 +105,7 @@
         if (window.sessionStorage) {
             sessionStorage.removeItem(key);
         } else {
-            //后备方案
+            // 后备方案
             removeCookie(key);
         }
     };
@@ -112,7 +114,7 @@
         if (window.localStorage) {
             localStorage.setItem(key, value);
         } else {
-            //后备方案
+            // 后备方案
             setCookie(key, value);
         }
     };
@@ -121,7 +123,7 @@
         if (window.localStorage) {
             return localStorage.getItem(key);
         } else {
-            //后备方案
+            // 后备方案
             return getCookie(key);
         }
     };
@@ -130,7 +132,7 @@
         if (window.localStorage) {
             localStorage.removeItem(key);
         } else {
-            //后备方案
+            // 后备方案
             removeCookie(key);
         }
     };
@@ -256,13 +258,13 @@ $(document).ready(function () {
 
     spInitStaticResource();
 
-    if (epm.getLocalItem('username')) {
+    if (epm.getLocalItem(epm.k.USER_NAME)) {
         // 已登录,获取用户
         var $loginIn = $('.hd-login-in');
         var $hdUser = $('.hd-user');
 
         var $target = $hdUser.find('.hd-top-txt');
-        $target.text('欢迎，' + epm.getLocalItem('username'));
+        $target.text('欢迎，' + epm.getLocalItem(epm.k.USER_NAME));
 
         $loginIn.hide();
         $hdUser.show();

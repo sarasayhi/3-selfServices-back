@@ -30,7 +30,7 @@ function pageInit() {
                     result = JSON.parse(result);
                 }
                 if (result['success'] == true && result != null) {
-                    epm.setLocalItem('userName',params['name']);
+                    epm.setLocalItem(epm.k.USER_NAME,params['name']);
                     epm.setSessionItem('turnToSort', 0);
 //                        location.href("/adminIndex");
 //                        window.location.href = 'adminIndex';
