@@ -33,6 +33,16 @@ public class EntryController {
         return "adminGoods";//WEB-INF/jsp/"list".jsp
     }
 
+    @RequestMapping("/cart")
+    public String cart() {
+        return "cart";
+    }
+
+    @RequestMapping("/orderConfirm")
+    public String orderConfirm() {
+        return "orderConfirm";
+    }
+
     @RequestMapping("/goodsList")
     public String goodsList() {
         return "goodsList";//WEB-INF/jsp/"list".jsp

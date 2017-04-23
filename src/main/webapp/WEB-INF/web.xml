@@ -11,7 +11,7 @@
         <servlet-name>GA-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!-- 配置springMVC 需要加载的配置文件
-            spring-dao.xml,spring-service.xml,spring-web.xml
+            spring-dao,spring-service.xml,spring-web.xml
             mybatis -> spring -> springMVC
         -->
         <init-param>

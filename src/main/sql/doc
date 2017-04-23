@@ -64,3 +64,10 @@ ajax请求登陆或注册
 返回结果，缓存登陆信息
 跳转页面
 
+提交订单
+需要产生订单信息
+提供userid totalprice totalamount
+批量移除cartItem
+
+
+

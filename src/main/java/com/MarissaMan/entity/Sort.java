@@ -3,8 +3,14 @@ package com.MarissaMan.entity;
 import java.io.Serializable;
 
 public class Sort implements Serializable {
+    /**
+     * 类别id
+     */
     private Integer sortId;
 
+    /**
+     * 类别名称
+     */
     private String sortName;
 
     private static final long serialVersionUID = 1L;

@@ -2,17 +2,12 @@ package com.MarissaMan.controller;
 
 import com.MarissaMan.dto.Msg;
 import com.MarissaMan.dto.Result;
-import com.MarissaMan.dto.test;
 import com.MarissaMan.entity.User;
 import com.MarissaMan.service.UserService;
 import com.alibaba.fastjson.JSON;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
@@ -164,23 +159,23 @@ public class UserController {
     public String userToLogin(String params) {
         System.out.println("-----用户登陆--------");
         System.out.println(params + " before");
-        Msg msg;
+        Msg<User> msg;
         Boolean isSuccess;
+        User user = JSON.parseObject(params, User.class);
+        String name = user.getName();
         try {
-            User user = JSON.parseObject(params, User.class);
-            String name = user.getName();
             User user1 = userService.getUserByName(name);
             if (user.getPassword().equals(user1.getPassword())) {
-                msg = new Msg("用户登陆成功");
+                msg = new Msg("用户登陆成功", user1);
                 isSuccess = true;
-            }else {
+            } else {
                 isSuccess = false;
-                msg = new Msg("用户密码不正确");
+                msg = new Msg("用户密码不正确", user);
             }
 
             System.out.println(params + " into");
         } catch (Exception e) {
-            msg = new Msg("该用户不存在");
+            msg = new Msg("该用户不存在", user);
             isSuccess = false;
             System.out.println(e.getMessage());
         }
@@ -195,28 +190,28 @@ public class UserController {
     public String userToRegister(String params) {
         System.out.println("-----用户注册--------");
         System.out.println(params + " before");
-        Msg msg;
+        Msg<User> msg;
         Boolean isSuccess;
+        //需要调用函数把字符串转化为对应的Bean
+        User user = JSON.parseObject(params, User.class);
+        user.setMoney(0.0);
         try {
-            //需要调用函数把字符串转化为对应的Bean
-            User user = JSON.parseObject(params, User.class);
-            user.setMoney(0.0);
             int flag = userService.addUser(user);
-            System.out.println(user.toString());
             if (flag == 1) {
-                msg = new Msg("用户注册成功");
+                User user1 = userService.getUserByName(user.getName());
+                msg = new Msg("用户注册成功", user1);
                 isSuccess = true;
             } else if (flag == 0) {
                 isSuccess = false;
-                msg = new Msg("用户注册失败");
+                msg = new Msg("用户注册失败", user);
             } else {
                 isSuccess = false;
-                msg = new Msg("用户注册发生异常");
+                msg = new Msg("用户注册发生异常", user);
             }
 
             System.out.println(params + " into");
         } catch (Exception e) {
-            msg = new Msg("用户注册抛出异常");
+            msg = new Msg("用户注册抛出异常", user);
             isSuccess = false;
             System.out.println(e.getMessage());
         }
@@ -224,9 +219,6 @@ public class UserController {
         Result<Msg> result = new Result(isSuccess, msg);
         return JSON.toJSONString(result);
     }
-
-
-
 
 //    @RequestMapping(value="/{name}", method = RequestMethod.GET)
 //    public @ResponseBody Shop getShopInJSON(@PathVariable String name) {

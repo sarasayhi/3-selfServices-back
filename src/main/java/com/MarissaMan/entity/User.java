@@ -18,6 +18,9 @@ public class User implements Serializable {
      */
     private String password;
 
+    /**
+     * ”‡∂Ó
+     */
     private Double money;
 
     private static final long serialVersionUID = 1L;

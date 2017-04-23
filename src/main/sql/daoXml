@@ -1,0 +1,69 @@
+CartDao.xml
+ <!--by myself-->
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    cart_id,goods_id,user_id,name,amount,price
+    from cart
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  GoodsDao.xml
+     <!--by myself 1-->
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+      select
+      goods_id,name,price,stock,url,sort,status
+      from goods
+      where name = #{name,jdbcType=VARCHAR}
+    </select>
+    <!--by myself 2-->
+    <select id="selectAllGoods" resultMap="BaseResultMap">
+      select
+      goods_id,name,price,stock,url,sort,status
+      from goods
+    </select>
+    <!--by myself 3-->
+    <select id="selectBySort" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+      select
+      goods_id,name,price,stock,url,sort,status
+      from goods
+      where sort = #{sort,jdbcType=INTEGER}
+    </select>
+    <!--by myself 4-->
+    <select id="selectByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+      select
+      goods_id,name,price,stock,url,sort,status
+      from goods
+      where name = #{status,jdbcType=INTEGER}
+    </select>
+
+    SortDao.xml
+      <!--by myself-->
+        <select id="selectAllSort" resultMap="BaseResultMap">
+        select
+        sort_id,sort_name
+        from sort
+      </select>
+
+
+      UserDao.xml
+        <!--by myself-->
+          <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+          select
+          user_id,name,password,money
+          from user
+          where name = #{name,jdbcType=VARCHAR}
+        </select>
+          <!--by myself-->
+          <select id="selectByMoney" resultMap="BaseResultMap" parameterType="java.lang.Double">
+          select
+          user_id,name,password,money
+          from user
+          where money = #{money,jdbcType=DOUBLE}
+        </select>
+          <!--by myself-->
+          <select id="selectAllUser" resultMap="BaseResultMap">
+          select
+          user_id,name,password,money
+          from user
+        </select>
+

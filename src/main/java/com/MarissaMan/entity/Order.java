@@ -10,6 +10,11 @@ public class Order implements Serializable {
     private Integer orderId;
 
     /**
+     * 用户id
+     */
+    private Integer userId;
+
+    /**
      * 订单总价
      */
     private Double totalPrice;
@@ -34,11 +39,6 @@ public class Order implements Serializable {
      */
     private Integer identifyCode;
 
-    /**
-     * 用户id
-     */
-    private Integer userId;
-
     private static final long serialVersionUID = 1L;
 
     public Integer getOrderId() {
@@ -47,6 +47,14 @@ public class Order implements Serializable {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Double getTotalPrice() {
@@ -89,14 +97,6 @@ public class Order implements Serializable {
         this.identifyCode = identifyCode;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -104,12 +104,12 @@ public class Order implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", orderId=").append(orderId);
+        sb.append(", userId=").append(userId);
         sb.append(", totalPrice=").append(totalPrice);
         sb.append(", totalAmount=").append(totalAmount);
         sb.append(", createdTime=").append(createdTime);
         sb.append(", status=").append(status);
         sb.append(", identifyCode=").append(identifyCode);
-        sb.append(", userId=").append(userId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

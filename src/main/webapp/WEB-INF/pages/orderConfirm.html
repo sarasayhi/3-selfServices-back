@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="">
+        <title>提交订单</title>
+
+        <link rel="icon" href="img/apple-touch-icon.png">
+
+        <link rel="stylesheet" href="font/iconfont.css">
+        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/orderConfirm.css">
+    </head>
+    <body>
+
+        <!--头部-->
+        <header>
+            <!--顶部栏-->
+            <div class="hd-top">
+                <div class="sp-container">
+                    <div class="hd-top-left">
+
+                        <dl class="hd-top-title-bar">
+                            <dt class="hd-top-title">
+                                <i class="iconfont i-addr">&#xe627;</i>
+                                <span id="curMarket" class="hd-top-txt"></span>
+                                <i class="i-down"></i>
+                            </dt>
+                            <dd id="marketList" class="hd-top-items">
+                            </dd>
+                        </dl>
+
+                        <dl class="hd-top-title-bar">
+                            <dt class="hd-top-title">
+                                <span class="hd-top-txt">送至:
+                                    <b class="address"></b>
+                                    <a href="location_index.html">[切换地址]</a>
+                                </span>
+                                <i class="i-down"></i>
+                            </dt>
+                            <dd class="hd-top-items" id="addressList">
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="hd-top-right">
+                        <div class="hd-login-in">
+                            <a href="login.html?to=login">登录</a>
+                            <a href="login.html?to=register">注册</a>
+                        </div>
+                        <!--登录之后显示-->
+                        <div class="hd-user" style="display: none;">
+                            <dl class="hd-top-title-bar hd-user-bar">
+                                <dt class="hd-top-title">
+                                    <span class="hd-top-txt"></span>
+                                    <i class="i-down"></i>
+                                </dt>
+                                <dd class="hd-top-items" id="menu">
+                                </dd>
+                            </dl>
+                        </div>
+                        <span class="hd-split"></span>
+                        <div class="hd-service service">
+                            <i class="iconfont i-service">&#xe66e;</i>
+                            客服
+                        </div>
+                        <div class="hd-download-app">
+                            <a href="download.html">
+                                <i class="iconfont i-app">&#xe608;</i>
+                                下载app
+                            </a>
+                            <div class="cm-app">
+                                <img class="cm-app-img" src="img/qr-code-app.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--logo和搜索 导航部分-->
+            <div class="hd-bar">
+                <div class="sp-container">
+                    <div class="hd-logo-bar">
+                        <div class="hd-logo">
+                            <a href="index.html">
+                                <img src="img/logo.png">
+                            </a>
+                        </div>
+                        <div class="hd-search">
+                            <div class="hd-search-form">
+                                <select id="searchSelect" class="hd-select-search">
+                                    <option>商品</option>
+                                    <option>档口</option>
+                                </select>
+                                <input class="hd-search-text" type="text" id="search" name="search" placeholder="本地胡萝卜" maxlength="20">
+                                <button class="hd-search-btn" id="btnSearch">
+                                    <i class="iconfont i-search">&#xe604;</i>
+                                </button>
+                            </div>
+                            <div class="hot-words" id="hotWords">
+                            </div>
+                            <ul class="hd-search-list">
+                                <li class="hd-search-item">牛肉</li>
+                                <li class="hd-search-item">牛肉</li>
+                                <li class="hd-search-item">牛肉</li>
+                                <li class="hd-search-item">牛肉</li>
+                                <li class="hd-search-item">牛肉</li>
+                                <li class="hd-search-item">牛肉</li>
+                            </ul>
+                        </div>
+                        <!--购物车-->
+                        <div class="hd-cart">
+                            <i class="iconfont i-cart">&#xe66d;</i>
+                            <span class="hd-shop-text">购物车</span>
+                            <span class="hd-shop-num">0</span>
+                        </div>
+                    </div>
+                    <nav class="hd-nav">
+                        <div class="hd-fixed-center">
+                            <ul class="hd-nav-items">
+                            </ul>
+                            <div class="hd-fixed-right">
+                                <div class="hd-cart hd-cart-fixed">
+                                    <i class="iconfont i-cart-fixed">&#xe66d;</i>
+                                    <span>购物车</span>
+                                    <span class="hd-shop-num"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <div class="sp-container">
+            <!--配送信息-->
+            <div class="delivery">
+                <h4>配送信息</h4>
+                <div class="delivery-info">
+                    <form class="delivery-form">
+                        <div class="delivery-pay">
+                            <label>支付方式</label>
+                            <span class="case case-pay case-selected">
+                                <i class="iconfont i-wallet">&#xe6c2;</i>
+                                我的钱包
+                            </span>
+                            <span class="case case-pay">
+                                <i class="iconfont i-alipay">&#xe662;</i>
+                                支付宝
+                            </span>
+                            <span class="case case-pay">
+                                <i class="iconfont i-wechat">&#xe612;</i>
+                                微信支付
+                            </span>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <!--订单列表-->
+            <div class="order-list">
+                <ul class="od-list">
+                    <li class="od-goods-info od-goods-bold">商品信息</li>
+                    <li></li>
+                    <li>规格</li>
+                    <li>单价</li>
+                    <li>数量</li>
+                    <li>小计</li>
+                </ul>
+                <div class="od-content">
+                </div>
+            </div>
+
+            <!--支付区域-->
+            <div class="od-pay-area">
+                <div class="od-leave-word">
+                    <input type="text" class="leave-word-input" placeholder="请输入留言" maxlength="50">
+                    <a class="go-cart" href="cart.html">返回购物车 &gt;</a>
+                </div>
+                <div class="od-pay-info">
+                    <div class="od-pay-txt">
+                        <p class="od-free-delivery">免配送费</p>
+                        <p id="discountTips">使用
+                            <span class="discount-price">0</span>
+                            元代金券
+                        </p>
+                    </div>
+                    <div class="od-pay-list">
+                        <p class="od-line1">
+                            <span class="od-amount-piece">共
+                                <em id="goodsAmount">0</em>
+                                件
+                            </span>
+                            <label>总计：</label>
+                            <span class="od-pay-num" id="goodsTotal">￥0</span>
+                        </p>
+                        <p class="od-line2">
+                            <label>配送费：</label>
+                            <span class="od-pay-num" id="postPrice">￥0</span>
+                        </p>
+                        <p class="od-line3">
+                            <label>优惠券：</label>
+                            <span class="od-pay-num">
+                                <span class="discount-price">￥0</span>
+                            </span>
+                        </p>
+                        <p class="od-line4">
+                            <label>应付：</label>
+                            <span class="od-pay-num od-should-pay">￥0</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="od-pay-btn">
+                    <a href="javascript:void(0)" class="ct-pay-btn">去支付</a>
+                </div>
+            </div>
+
+            <!--遮罩层-->
+            <div class="cm-shade">
+                <!-- 我的钱包输入密码弹窗 -->
+                <div class="wallet-window">
+                    <h3 class="wallet-title">我的钱包</h3>
+                    <i class="iconfont i-close-btn">&#xe60b;</i>
+                    <div class="wallet-info">
+                        <div class="wallet-price">支付金额：
+                            <span></span>
+                        </div>
+                        <input type="password" class="wallet-password" placeholder="请输入密码" value="" maxlength="6"/>
+                        <div class="wallet-submit-btn">确定</div>
+                    </div>
+                </div>
+
+                <!-- 微信支付二维码弹窗 -->
+                <div class="wechat-pay-code">
+                    <h3 class="wechat-pay-title">微信支付</h3>
+                    <i class="iconfont i-close-btn">&#xe60b;</i>
+                    <div class="wechat-pay-info">
+                        <img id="wechat-code" src=""/>
+                        <div>打开手机微信
+                            <br/>
+                            扫一扫完成付款
+                        </div>
+                        <img id="wechat-tip-img" src="img/wechat-img.png"/>
+                    </div>
+                </div>
+
+                <!--切换地址弹窗-->
+                <div class="change-modal">
+                    <h3 class="revise-title">请选择地址
+                        <i class="iconfont i-close-change">&#xe60b;</i>
+                    </h3>
+
+                    <ul class="os-addr-list change-addr-list clearfix">
+                    </ul>
+
+                    <div class="revise-btn-row">
+                        <button class="cm-btn-md save-btn">保存</button>
+                    </div>
+                </div>
+
+                <!--添加地址弹窗-->
+                <div class="addr-revise-modal addr-add-modal">
+                    <h3 class="revise-title">添加新地址</h3>
+                    <div class="revise-row">
+                        <label class="revise-label" for="personName">收货人</label>
+                        <input class="revise-input personName" id="personName" type="text" maxlength="8"/>
+                    </div>
+                    <div class="revise-row">
+                        <label class="revise-label" for="personMobile">手机号</label>
+                        <input class="revise-input person-mobile" id="personMobile" type="text" maxlength="11">
+                        <span class="error-message">
+                            <i class="iconfont i-has-error"></i>
+                            <span class="error-text">请输入正确的手机号</span>
+                        </span>
+                    </div>
+
+                    <!--城市-->
+                    <div class="revise-row">
+                        <label class="revise-label" for="curCity">城市</label>
+                        <div class="revise-input city-layout">
+                            <!--当前城市-->
+                            <p class="city" id="curCity"></p>
+                            <!--城市列表-->
+                            <div class="city-box addr-city-box">
+                                <div class="city-list addr-city-list">
+                                    <div class="citys addr-citys"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="revise-row revise-address">
+                        <label class="revise-label" for="address">收货地址</label>
+                        <input class="revise-input address" id="address" type="text">
+                        <div class="address-tips"></div>
+                    </div>
+                    <div class="revise-row">
+                        <label class="revise-label" for="address1">门牌号</label>
+                        <input class="revise-input address1" maxlength="20" id="address1" type="text">
+                    </div>
+                    <div class="revise-btn-row">
+                        <!--<label class="revise-label"></label>-->
+                        <button class="cm-btn-md save-btn save-address" action="add">保存</button>
+                        <span class="cancel">取消</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--尾页-->
+        <footer>
+            <div class="sp-container">
+                <ul class="ft-service">
+                    <li class="s1">
+                        <span>快速送达</span>
+                    </li>
+                    <li class="s2">
+                        <span>全程冷链</span>
+                    </li>
+                    <li class="s3">
+                        <span>菜市直购</span>
+                    </li>
+                    <li class="s4">
+                        <span>贴心服务</span>
+                    </li>
+                </ul>
+                <div class="ft-info-main">
+                    <div class="ft-items">
+                        <p class="ft-items-phone">(020)82517230</p>
+                        <p class="ft-items-time">周一至周日 8:00-18:00</p>
+                        <a href="javascript:void(0)" class="ft-items-feedback" id="feedBack">用户反馈</a>
+                    </div>
+                    <i class="ft-separator"></i>
+                    <dl class="ft-items">
+                        <dt>膳品宅送</dt>
+                        <dd>
+                            <a href="about.html?to=1" title="关于我们">关于我们</a>
+                        </dd>
+                        <dd>
+                            <a href="about.html?to=2" title="加入我们">加入我们</a>
+                        </dd>
+                        <dd>
+                            <a href="about.html?to=3" title="联系我们">联系我们</a>
+                        </dd>
+                    </dl>
+                    <i class="ft-separator"></i>
+                    <div class="ft-items ft-code">
+                        <img src="img/ft-qr-code-app.png">
+                        <p>扫描下载APP</p>
+                    </div>
+                    <i class="ft-separator"></i>
+                    <div class="ft-items ft-code">
+                        <img src="img/official-accounts-code.png">
+                        <p>关注微信号</p>
+                    </div>
+                </div>
+                <div class="ft-copyright">
+                    <p>©2017 广州膳品科技网络有限公司3pzs.com 版权所有</p>
+                    <p>
+                        <a target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备17028008号-1</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <!--右边top和app下载-->
+        <div class="fixed-right">
+            <div class="to-top-app">
+                <img src="img/qr-code-app.png" alt="app二维码">
+                <p class="app">扫描下载app</p>
+            </div>
+            <div class="to-top-app service">
+                <img src="img/service.svg" alt="客服">
+                <p>联系客服</p>
+            </div>
+            <a id="goTop" class="go-top" href="javascript:void(0)" title="回到顶部">
+                <i class="iconfont i-top">&#xe60e;</i>
+                <p>TOP</p>
+            </a>
+        </div>
+
+        <script src="js/vendor/jquery-3.1.1.js"></script>
+        <!--<script src="js/vendor/sha1.js"></script>-->
+        <script src="js/default.js"></script>
+        <script src="js/orderConfirm.js"></script>
+    </body>
+</html>

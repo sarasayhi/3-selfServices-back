@@ -16,15 +16,18 @@ public interface CartDao {
 
     int insertSelective(Cart record);
 
+    List<Cart> selectByUserId(Integer userId);
+
     List<Cart> selectByExample(CartQuery example);
 
     Cart selectByPrimaryKey(Integer cartId);
+
+    int updateByPrimaryKeySelective(Cart record);
 
     int updateByExampleSelective(@Param("record") Cart record, @Param("example") CartQuery example);
 
     int updateByExample(@Param("record") Cart record, @Param("example") CartQuery example);
 
-    int updateByPrimaryKeySelective(Cart record);
-
     int updateByPrimaryKey(Cart record);
+
 }

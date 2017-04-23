@@ -43,12 +43,16 @@
     epm.v = {
         get title() {
             return TITLE;
+        },
+        get imageURLPrefix(){
+            return 'images/all/';
         }
     };
 
     epm.k = {
         SORT_LIST: 'SORT_LIST',
-        USER_NAME:'USER_NAME'
+        USER_NAME: 'USER_NAME',
+        CART_LIST:'CART_LIST'
     };
 
     // 配置项
@@ -68,7 +72,23 @@
             } catch (err) {
                 return value;
             }
+        }, set cartList(value) {
+            if (typeof value !== 'string') {
+                value = JSON.stringify(value);
+            }
+
+            epm.setLocalItem(epm.k.CART_LIST, value);
+        },
+        get cartList() {
+            var value = epm.getLocalItem(epm.k.CART_LIST);
+
+            try {
+                return JSON.parse(value);
+            } catch (err) {
+                return value;
+            }
         }
+
     };
 
     // 业务相关
@@ -84,57 +104,57 @@
     };
 
     epm.setSessionItem = function (key, value) {
-        if (window.sessionStorage) {
-            sessionStorage.setItem(key, value);
-        } else {
-            // 后备方案
-            setCookie(key, value);
-        }
+        // if (window.sessionStorage) {
+        //     sessionStorage.setItem(key, value);
+        // } else {
+        // 后备方案
+        setCookie(key, value);
+        // }
     };
 
     epm.getSessionItem = function (key) {
-        if (window.sessionStorage) {
-            return sessionStorage.getItem(key);
-        } else {
-            // 后备方案
-            return getCookie(key);
-        }
+        // if (window.sessionStorage) {
+        //     return sessionStorage.getItem(key);
+        // } else {
+        // 后备方案
+        return getCookie(key);
+        // }
     };
 
     epm.removeSessionItem = function (key) {
-        if (window.sessionStorage) {
-            sessionStorage.removeItem(key);
-        } else {
-            // 后备方案
-            removeCookie(key);
-        }
+        // if (window.sessionStorage) {
+        //     sessionStorage.removeItem(key);
+        // } else {
+        // 后备方案
+        removeCookie(key);
+        // }
     };
 
     epm.setLocalItem = function (key, value) {
-        if (window.localStorage) {
-            localStorage.setItem(key, value);
-        } else {
-            // 后备方案
-            setCookie(key, value);
-        }
+        // if (window.localStorage) {
+        //     localStorage.setItem(key, value);
+        // } else {
+        // 后备方案
+        setCookie(key, value);
+        // }
     };
 
     epm.getLocalItem = function (key) {
-        if (window.localStorage) {
-            return localStorage.getItem(key);
-        } else {
-            // 后备方案
-            return getCookie(key);
-        }
+        // if (window.localStorage) {
+        //     return localStorage.getItem(key);
+        // } else {
+        // 后备方案
+        return getCookie(key);
+        // }
     };
 
     epm.removeLocalItem = function (key) {
-        if (window.localStorage) {
-            localStorage.removeItem(key);
-        } else {
-            // 后备方案
-            removeCookie(key);
-        }
+        // if (window.localStorage) {
+        //     localStorage.removeItem(key);
+        // } else {
+        // 后备方案
+        removeCookie(key);
+        // }
     };
 
     epm.getNumber = function (num) {
@@ -255,19 +275,37 @@
 $(document).ready(function () {
     //获取类别列表
     InitGoodsSortList();
+    cartHref();
 
-    spInitStaticResource();
 
-    if (epm.getLocalItem(epm.k.USER_NAME)) {
+    if (epm.getLocalItem(epm.k.USER_NAME) !== null) {
         // 已登录,获取用户
         var $loginIn = $('.hd-login-in');
         var $hdUser = $('.hd-user');
 
         var $target = $hdUser.find('.hd-top-txt');
-        $target.text('欢迎，' + epm.getLocalItem(epm.k.USER_NAME));
+
+        var token = JSON.parse(epm.getLocalItem(epm.k.USER_NAME));
+        $target.text('欢迎，' + token['name']);
 
         $loginIn.hide();
         $hdUser.show();
+
+        spInitStaticResource();
+        var url = 'cart/getCartList/' + token['userId'];
+        $.post(url, function (result) {
+            var resultObject = JSON.parse(result);
+            if (resultObject['success'] == true) {
+                var cartList = resultObject['data']['data'];
+                var list = {};
+                for(var index in cartList){
+                    var item = cartList[index];
+                    var goodsId =item['goodsId'];
+                    list[goodsId] = item;
+                }
+                epm.c.cartList =list;
+            }
+        });
     }
 
     if ($.isFunction(window.pageInit)) {
@@ -275,6 +313,19 @@ $(document).ready(function () {
     }
 
 });
+
+function cartHref() {
+    $('.hd-cart').on({
+       click:function () {
+           if (epm.getLocalItem(epm.k.USER_NAME) !== null) {
+               window.location.href='cart';
+
+           } else {
+               alert('请先登录');
+           }
+       }
+    });
+}
 
 // 初始化静态资源
 function spInitStaticResource() {

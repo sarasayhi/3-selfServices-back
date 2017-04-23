@@ -30,10 +30,12 @@ function pageInit() {
                     result = JSON.parse(result);
                 }
                 if (result['success'] == true && result != null) {
-                    epm.setLocalItem(epm.k.USER_NAME,params['name']);
+                    var token ={};
+                   token['userId']= result['data']['data']['userId'];
+                   token['name']= result['data']['data']['name'];
+                   token = JSON.stringify(token);
+                    epm.setLocalItem(epm.k.USER_NAME,token);
                     epm.setSessionItem('turnToSort', 0);
-//                        location.href("/adminIndex");
-//                        window.location.href = 'adminIndex';
                     alert(result['data']['msg']);
                     window.location.href = 'goodsList';
                 } else {

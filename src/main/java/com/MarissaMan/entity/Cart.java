@@ -14,6 +14,11 @@ public class Cart implements Serializable {
     private Integer goodsId;
 
     /**
+     * 用户id
+     */
+    private Integer userId;
+
+    /**
      * 商品名称
      */
     private String name;
@@ -27,11 +32,6 @@ public class Cart implements Serializable {
      * 商品单价
      */
     private Double price;
-
-    /**
-     * 用户id
-     */
-    private Integer userId;
 
     private static final long serialVersionUID = 1L;
 
@@ -49,6 +49,14 @@ public class Cart implements Serializable {
 
     public void setGoodsId(Integer goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -75,14 +83,6 @@ public class Cart implements Serializable {
         this.price = price;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -91,10 +91,10 @@ public class Cart implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", cartId=").append(cartId);
         sb.append(", goodsId=").append(goodsId);
+        sb.append(", userId=").append(userId);
         sb.append(", name=").append(name);
         sb.append(", amount=").append(amount);
         sb.append(", price=").append(price);
-        sb.append(", userId=").append(userId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -80,9 +80,9 @@ function getSortName(sortId) {
 function getGoodsList() {
 
     var sortId = epm.getSessionItem('turnToSort');
-    $('li[id="'+sortId+'"]').addClass('hd-active');
+    $('li[id="' + sortId + '"]').addClass('hd-active');
 
-    var url = 'goods/getGoodsList/'+sortId;
+    var url = 'goods/getGoodsList/' + sortId;
     $.post(url, function (result) {
         var resultObject = JSON.parse(result);
         if (resultObject['success'] == false) {
@@ -94,33 +94,41 @@ function getGoodsList() {
             $dataItem = $('.cm-col-5');
 
         var html = '';
-        var shopId, goodsId, goodsName, goodsSpec, shopName, price, cartId, cartAmount,
-            stockAmount, imgURL, goodsAttr;
-        var imgprefix = 'images/all/';
-        var imgsuffix = '.jpg';
+        var goodsId, goodsName, price, stockAmount, imgURL, sortId, sortName, cartId, cartAmount;
+        var imgPrefix = 'images/all/';
+        var imgSuffix = '.jpg';
         $.each(resultObject['data'], function (key, goods) {
-            shopId = 'shop_iid';
             goodsId = goods['goodsId'];
             goodsName = goods['name'];
+            price = goods['price'];
+            stockAmount = goods['stock'];
+            imgURL = imgPrefix + goods['url'] + imgSuffix;
+            sortId = goods['sort'];
             var goodsSortList = epm.c.goodsSortList;
             $.each(goodsSortList, function (id, name) {
                 if (id == goods['sort']) {
-                    shopName = name;
+                    sortName = name;
                 }
             });
-            price = goods['price'];
-            cartId = 2225;
-            cartAmount = 2;
-            stockAmount = goods['stock'];
 
-            imgURL = imgprefix + goods['url'] + imgsuffix;
+            var cartList = epm.c.cartList;
+            if (cartList !== null && cartList[goodsId] !== undefined) {
+                var item = cartList[goodsId];
+                // {"amount":50,"cartId":5,"goodsId":10253,
+                //     "name":"GRACO葛莱汽车儿童安全座椅增高垫4-12岁","price":438}
+                cartId = item['cartId'];
+                cartAmount = item['amount'];
+            } else {
+                cartId = 0;
+                cartAmount = 0;
+            }
 
             html += '<li class="cm-col-5">'
-                + '<a href="goods_detail.html?shopiid=' + shopId + '&goodsiid=' + goodsId + '">'
+                + '<a href="goods_detail.html?shopiid=' + sortId + '&goodsiid=' + goodsId + '">'
                 + '<img src="' + imgURL + '">'
                 + '<div class="cm-col-5-info">'
                 + '<h3 class="cm-col-5-info-name">' + goodsName + '</h3>'
-                + '<p class="cm-col-5-stall">' + shopName + '</p>'
+                + '<p class="cm-col-5-stall">' + sortName + '</p>'
                 + '<p class="cm-col-5-goods-price">￥' + price + '</p></div></a>'
 
                 + '<span class="cm-col-5-cart">'
@@ -128,9 +136,9 @@ function getGoodsList() {
                 + (cartAmount == 0 ? ' style="display:none" ' : '')
                 + '>'
                 + '<i class="cm-col-5-cart-minus iconfont">&#xe629;</i>'
-                + '<i class="cm-col-5-cart-num" shopiid="' + shopId + '" goodsiid="'
+                + '<i class="cm-col-5-cart-num" sortid="' + sortId + '" goodsid="'
                 + goodsId + '" stock-amount="' + stockAmount
-                + '" cart-amount="' + cartAmount + '" cartiid="' + cartId + '">' + cartAmount + '</i></span>'
+                + '" cart-amount="' + cartAmount + '" cartid="' + cartId + '" goods-name="' + goodsName + '" price="' + price + '">' + cartAmount + '</i></span>'
                 + '<i class="cm-col-5-cart-plus iconfont">&#xe623;</i></span>'
                 + '</li>';
         });
@@ -138,10 +146,128 @@ function getGoodsList() {
         var dataItemHeight = $dataItem.outerHeight(true);
 
         $dataList.append(html).height(dataItemHeight * Math.ceil($dataList.find('li').length / 5));
+
+
+        // 增加商品数量
+        $('.cm-col-5-cart-plus').on({
+            click: function () {
+                if (epm.getLocalItem(epm.k.USER_NAME) !== null) {
+                    var $target = $(this).parents('.cm-col-5-cart').find('.cm-col-5-cart-num'),
+                        $targetShow = $(this).siblings('.cart-num-null'),
+                        max = $target.attr('stock-amount'),
+                        cartId = $target.attr('cartid'), amount, url;
+                    if (cartId == 0) {
+                        url = "cart/addCart";
+                        amount = 1;
+                    } else {
+                        url = 'cart/updateCart';
+                        amount = parseInt($target.text()) + 1;
+                    }
+
+                    console.log(parseInt($target.text()));
+                    if (amount <= max || max == -1) {
+                        var goodsId = $target.attr('goodsid'),
+                            goodsName = $target.attr('goods-name'),
+                            price = $target.attr('price');
+                        var token = JSON.parse(epm.getLocalItem(epm.k.USER_NAME));
+                        var params = {};
+                        params['cartId'] = cartId;
+                        params['goodsId'] = goodsId;
+                        params['name'] = goodsName;
+                        params['amount'] = amount;
+                        params['price'] = price;
+                        params['userId'] = token['userId'];
+
+                        $.post(url, {params: JSON.stringify(params)}, function (result) {
+                            // alert('返回结果： ' + result);
+                            // {"data":{"msg":"添加购物车成功"},"success":true}
+                            var resultObject = JSON.parse(result);
+                            var msg = "商品加入购物车失败";
+                            var res = false;
+                            if (resultObject['success'] == true) {
+                                msg = "商品加入购物车成功";
+                                $target.html(amount);
+                                $targetShow.show();
+                            }
+
+                            confirmResult(msg);
+                        });
+
+                    } else {
+                        alert('该商品库存不足，请选购其他商品');
+                    }
+                } else {
+                    alert('您还没有登录，请登录购物');
+                    // window.location.href='userLogin';
+                }
+            }
+        });
+
+        // 减少商品数量
+        $('.cm-col-5-cart-minus').on({
+            click: function () {
+                if (epm.getLocalItem(epm.k.USER_NAME) !== null) {
+                    var $target = $(this).parents('.cm-col-5-cart').find('.cm-col-5-cart-num'),
+                        $targetShow = $(this).siblings('.cart-num-null'),
+                        max = $target.attr('stock-amount'),
+                        cartId = $target.attr('cartid'), amount, url;
+                    if (amount == 0) {
+                        url = "cart/removeCart";
+                        amount = 0;
+                    } else {
+                        url = 'cart/updateCart';
+                        amount = parseInt($target.text()) - 1;
+                    }
+
+                    console.log(parseInt($target.text()));
+                    if (amount <= max || max == -1) {
+                        var goodsId = $target.attr('goodsid'),
+                            goodsName = $target.attr('goods-name'),
+                            price = $target.attr('price');
+                        var token = JSON.parse(epm.getLocalItem(epm.k.USER_NAME));
+                        var params = {};
+                        params['cartId'] = cartId;
+                        params['goodsId'] = goodsId;
+                        params['name'] = goodsName;
+                        params['amount'] = amount;
+                        params['price'] = price;
+                        params['userId'] = token['userId'];
+
+                        $.post(url, {params: JSON.stringify(params)}, function (result) {
+                            // alert('返回结果： ' + result);
+                            // {"data":{"msg":"添加购物车成功"},"success":true}
+                            var resultObject = JSON.parse(result);
+                            var msg = "商品加入购物车失败";
+                            var res = false;
+                            if (resultObject['success'] == true) {
+                                msg = "商品加入购物车成功";
+                                $target.html(amount);
+                                $targetShow.show();
+                            }
+
+                            confirmResult(msg);
+                        });
+
+                    } else {
+                        alert('该商品库存不足，请选购其他商品');
+                    }
+                } else {
+                    alert('您还没有登录，请登录购物');
+                    // window.location.href='userLogin';
+                }
+            }
+        });
+
     });
+
+
 }
-
-
+function confirmResult(msg) {
+    var r = confirm(msg);
+    if (r == true) {
+        window.location.reload();
+    }
+}
 function initDataList() {
 
     // epm.ajax(params, function(result) {
@@ -249,93 +375,7 @@ function initDataList() {
     //
     //     }
     // });
-    //
-    // // 增加商品数量
-    // $('.cm-col-5-cart-plus').on({
-    //     click: function() {
-    //         var $target = $(this).parents('.cm-col-5-cart').find('.cm-col-5-cart-num'),
-    //             $targetShow = $(this).siblings('.cart-num-null'),
-    //             amount = parseInt($target.text()) + 1,
-    //             max = $target.attr('stock-amount');
-    //         if (amount < max || max == -1) {
-    //             var shopId = $target.attr('shopiid'),
-    //                 goodsId = $target.attr('goodsiid');
-    //
-    //             epm.b.setCart(shopId, goodsId, amount, function(data) {
-    //                 $target.text(amount).attr('cartiid', data['data']);
-    //                 $targetShow.show();
-    //                 epm.b.addSelectedCart(parseInt(data['data']));
-    //             });
-    //         }
-    //
-    //     }
-    // });
-    // });
+    //  });
+
 }
 
-function eventTrigger() {
-
-    // 点击默认，价格等排序
-    $('.subdivision-right span').on({
-        click: function () {
-            SORT_TYPE = $(this).attr('data-sort-type');
-            if (SORT_TYPE == 2) {
-                $('.arrow-up').removeClass('arrow-up-active').siblings().addClass('arrow-down-active');
-                $(this).attr('data-sort-type', 1);
-            } else if (SORT_TYPE == 1) {
-                $('.arrow-down').removeClass('arrow-down-active').siblings().addClass('arrow-up-active');
-                $(this).attr('data-sort-type', 2);
-            } else {
-                $(this).siblings().find('i').removeClass('arrow-up-active').removeClass('arrow-down-active');
-                $(this).find('i').addClass('arrow-down-active');
-            }
-
-            OFFSET = 0;
-            $(this).addClass('text-selected').siblings().removeClass('text-selected');
-            $('.cm-list').html('');
-            initDataList();
-        }
-    });
-
-    // 点击加载更多
-    $('.load').on({
-        click: function () {
-            OFFSET += 15;
-            initDataList();
-        }
-    });
-}
-
-/**
- * 移除搜索不到数据的关键词数据
- */
-function removeSearchLocalItem(key) {
-
-    var i = 0,
-        keyValue = epm.k.SEARCH_KEYWORDS,
-        keyWords = epm.b.getSearchKeywords(),
-        $hotWords = $('#hotWords a');
-    if (!keyWords) {
-        return;
-    }
-    epm.removeLocalItem(keyValue);
-    for (i = 0; i < keyWords.length; i++) {
-        if (keyWords[i] == key) {
-            keyWords.splice(i, 1);
-            i--;
-        } else {
-            epm.b.addSearchKeywords(keyWords[i]);
-        }
-    }
-
-    for (i = 0; i < $hotWords.length; i++) {
-        if ($hotWords.eq(i).html() == key) {
-            if ($hotWords.eq(i).next('i')) {
-                $hotWords.eq(i).next('i').remove();
-            } else {
-                $hotWords.eq(i).pre('i').remove();
-            }
-            $hotWords.eq(i).remove();
-        }
-    }
-}
